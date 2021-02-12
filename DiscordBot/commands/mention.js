@@ -13,8 +13,10 @@ function execute(message, args) {
         if (!user) {
             return message.reply('Please use a proper mention if you want to see someone elses avatar.');
         }
-        if(user == `807289535184109618`)
+        if(user == `807289535184109618`){
+            console.log(message.author.username)
             return message.channel.send(`Hey ${user.username}! Lets talk for a while 😊`);
+        }
     }
 
     return message.channel.send(`Are you trying to talk to me, ${message.author.username}?`);

@@ -17,6 +17,8 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
+let isTalkingTo = false;
+
 client.on('message', discordMessage => {
 
     if(discordMessage.channel.id != CHANNEL) return; //returns if the message is not in the designated channel
@@ -30,9 +32,6 @@ client.on('message', discordMessage => {
         // the following 2 lines allow aliases
         const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
         if (!command) return;
-
-        console.log(discordMessage.content);
-        discordMessage.content = "ping";
 
         try {
             command.execute(discordMessage, args);

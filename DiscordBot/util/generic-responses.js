@@ -26,6 +26,8 @@ let negativeResponses = [
 
 
 module.exports = {
-    genericResponses
+    genericResponses,
+    positiveResponses,
+    negativeResponses
 
 }
