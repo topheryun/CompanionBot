@@ -1,4 +1,4 @@
-const {Queue} = require("./Queue.js");
+const {Queue} = require("../Queue.js");
 
 // How long the bot waits to start typing a reply
 const replyDelay = 1000;

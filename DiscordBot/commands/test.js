@@ -1,4 +1,4 @@
-const messaging = require("../util/MessageUtil");
+const messaging = require("../util/messaging/MessageUtil");
 const name = "test";
 
 function execute(discordMessage, args) {
