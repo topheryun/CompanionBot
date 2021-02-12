@@ -34,7 +34,6 @@ function checkNextKeyword(args, i) {
     }
 }
 
-
 function parseDiscordMessageforModifier(discordMessage) { //Modifier as in positive and negative words
     let userMessage = discordMessage.content.toLowerCase();
     // remove question mark
