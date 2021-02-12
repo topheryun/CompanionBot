@@ -7,7 +7,7 @@ client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 client.once('ready', () => {
-	console.log('Ready!');
+    console.log('Ready!');
 });
 
 for (const file of commandFiles) {
@@ -15,39 +15,43 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
-client.on('message', message => {
+client.on('message', discordMessage => {
 
-    if(message.channel.id === '809828317641048074'){
+    if (!discordMessage.content.startsWith(PREFIX) || discordMessage.author.bot) return;
+    // console.log(message.author.username + ": " + message.content);
 
-        if(!message.author.bot) {
+    const args = discordMessage.content.slice(PREFIX.length).trim().split(/ +/);
+    const commandName = args.shift().toLowerCase();
 
-            if (!message.content.startsWith(PREFIX)) { //Open Conversation
-                
-                
-                message.channel.send(`${message.content} is an interesting point`)
-                
+    if (!message.content.startsWith(PREFIX)) { //Open Conversation
 
-            } else {
-                // console.log(message.author.username + ": " + message.content);
 
-                const args = message.content.slice(PREFIX.length).trim().split(/ +/);
-                const commandName = args.shift().toLowerCase();
+        message.channel.send(`${message.content} is an interesting point`)
 
-                // the following 2 lines allow aliases
-                const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-                if (!command) return;
 
-                console.log(message.content);
+    } else {
+        // console.log(message.author.username + ": " + message.content);
 
-                try {
-                    command.execute(message, args);
-                } catch (error) {
-                    console.error(error);
-                    message.reply('there was an error trying to execute that command.');
-                }
-            }
+        const args = message.content.slice(PREFIX.length).trim().split(/ +/);
+        const commandName = args.shift().toLowerCase();
+
+        // the following 2 lines allow aliases
+        const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+        if (!command) return;
+
+        console.log(message.content);
+
+        bot.respond("lasodasd", discordMessage);
+
+        console.log(discordMessage.content);
+
+        try {
+            command.execute(discordMessage, args);
+        } catch (error) {
+            console.error(error);
+            discordMessage.reply('there was an error trying to execute that command.');
         }
     }
 });
 
-client.login(`${TOKEN}`);
+client.login(TOKEN);
