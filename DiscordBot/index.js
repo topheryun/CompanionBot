@@ -31,9 +31,6 @@ client.on('message', discordMessage => {
         const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
         if (!command) return;
 
-        console.log(discordMessage.content);
-        discordMessage.content = "ping";
-
         try {
             command.execute(discordMessage, args);
         } catch (error) {
