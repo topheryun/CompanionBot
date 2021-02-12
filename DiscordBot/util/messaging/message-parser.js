@@ -1,4 +1,4 @@
-const { apiMap } = require("./api/api-map");
+const { apiMap } = require("../api/api-map");
 
 function parseDiscordMessage(discordMessage) {
     let userMessage = discordMessage.content.toLowerCase();

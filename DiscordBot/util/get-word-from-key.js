@@ -1,5 +1,5 @@
 const { getApiWordPostAppend } = require("./api/get-api-word");
-const { getRandomInteger, getRandomDouble } = require("./MathUtil")
+const { getRandomInteger } = require("./MathUtil")
 const { genericResponses, positiveResponses, negativeResponses } = require("./generic-responses")
 
 
