@@ -35,3 +35,4 @@ build/
 
 ### Node ###
 DiscordBot/node_modules
+DiscordBot/node_modules/node-fetch
