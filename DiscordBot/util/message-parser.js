@@ -1,9 +1,9 @@
 const { apiMap } = require("./api/api-map");
 
 function parseDiscordMessage(discordMessage) {
-    discordMessage.content = discordMessage.content.toLowerCase();
+    let userMessage = discordMessage.content.toLowerCase();
     // remove question mark
-    const args = discordMessage.content.trim().split(/ +/);
+    const args = userMessage.trim().split(/ +/);
 
     return properKeywords(args);
 }
