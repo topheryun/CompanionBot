@@ -1,39 +1,35 @@
-message.channel.startTyping();
-/*
-            let msg = "I've found my ansr!";
-
-            setTimeout(() => {
-                message.channel.send("I've found my ansr!")
-            }, calculateLength(msg));
-
-            setTimeout(() => {
-                message.channel.send("sorry")
-            }, calculateLength(msg += "sorry"));
-            */
+const responseDelay = 1000;
 
 /**
- * 
- * @param {String} botResponse - The message or messages array to be sent by the bot
+ * Responds to the given message with a custom response
+ * @param {String | String[]} botResponse - The message or messages array to be sent by the bot
+ * @param {Object} discordMessage - The discord message object
  */
-function sendMessage(botResponse, discordMessage) {
+function reply(botResponse, discordMessage) {
     if (Array.isArray(botResponse)) {
         for (const s of botResponse) {
-            if (typeof s != "string") continue;
-
+            if (typeof s == 'string') continue;
+            startMessage(s, discordMessage);
         }
-    } else if (typeof s == "string") {
-        startMessage(botResponse);
+    } else if (typeof botResponse == 'string') {
+        startMessage(botResponse, discordMessage);
     }
-
-    setTimeout(() => {
-
-    }, (100))
 }
 
-function startMessage(botResponse) {
-    
+function startMessage(botResponse, discordMessage) {
+    setTimeout(() => {
+        discordMessage.channel.startTyping();
+        setTimeout(() => {
+            discordMessage.channel.send(botResponse);
+            discordMessage.channel.stopTyping();
+        }, calculateLength(botResponse));
+    }, responseDelay);
 }
 
 function calculateLength(botResponse) {
-    if (typeof message != "string") return;
+    return String(botResponse).length * 100;
+}
+
+module.exports = {
+    reply
 }
