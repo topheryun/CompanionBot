@@ -1,3 +1,3 @@
 # CompanionBot
 
-HackathrobSchedule.md
+[HackathrobSchedule](HackathrobSchedule.md)
