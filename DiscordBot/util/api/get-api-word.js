@@ -10,7 +10,7 @@ async function getApiWordPostAppend(key) {
     do {
         response = await fetch(value.URL + randomNumber + "/" + value.APPEND + "/");
     } while (response.status != 200)
-    //console.log(response);
+    console.log(response);
 
     let data = await response.json();
     return returnType(key, data);
@@ -21,7 +21,7 @@ function returnType(key, data) {
         case "pokemon": return data.name;
         case "dog": return data.name;
         case "anime": return data.title;
-        case "anime genre": return data.genres[0].name;
+        case "anime genre": return data.genres[0].name; // data["genres"][0]["name"]
         case "anime character": 
             let choice = getRandomInteger(0, data.characters.length);
             return data.characters[choice].name;
