@@ -17,6 +17,8 @@ for (const file of commandFiles) {
 
 client.on('message', message => {
 
+    if (message.channel.id != "809828331155357717") return
+
     if (!message.content.startsWith(PREFIX) || message.author.bot) return;
     // console.log(message.author.username + ": " + message.content);
 
@@ -37,4 +39,4 @@ client.on('message', message => {
     }
 });
 
-client.login(`${TOKEN}`);
+client.login(TOKEN);
