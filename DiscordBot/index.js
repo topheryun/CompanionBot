@@ -1,12 +1,15 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const { getWordFromKey } = require('./util/get-word-from-key');
 const { CHANNEL, PREFIX, TOKEN } = require('./config.json');
-const { parseDiscordMessage } = require('./util/message-parser');
-const client = new Discord.Client();
 
+const { getWordFromKey } = require('./util/get-word-from-key');
+const { parseDiscordMessage } = require('./util/message-parser');
+
+
+const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
 
 client.once('ready', () => {
     console.log('Ready!');
@@ -16,8 +19,6 @@ for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
 }
-
-let isTalkingTo = false;
 
 client.on('message', discordMessage => {
 
