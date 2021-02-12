@@ -20,9 +20,8 @@ function returnType(key, data) {
     switch(key) {
         case "pokemon": return data.name;
         case "dog": return data.name;
-        case "dogs": return data.name;
         case "anime": return data.title;
-        case "animes": return data.title;
+        case "anime genre": return data.genres[0].name;
         case "anime character": 
             let choice = getRandomInteger(0, data.characters.length);
             return data.characters[choice].name;

@@ -1,4 +1,4 @@
-const messaging = require("../util/MessageUtil");
+const messaging = require("../util/messaging/MessageUtil");
 let {botInstance} = require("../CompanionBot.js");
 const name = "test";
 
