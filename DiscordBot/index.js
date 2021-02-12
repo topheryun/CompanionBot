@@ -16,7 +16,7 @@ for (const file of commandFiles) {
 }
 
 client.on('message', discordMessage => {
-
+    if (discordMessage.channel.id != "809473454406369300") return;
     if (!discordMessage.content.startsWith(PREFIX) || discordMessage.author.bot) return;
     // console.log(message.author.username + ": " + message.content);
 
@@ -26,8 +26,6 @@ client.on('message', discordMessage => {
     // the following 2 lines allow aliases
     const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     if (!command) return;
-
-    bot.respond("lasodasd", discordMessage);
 
     console.log(discordMessage.content);
 
