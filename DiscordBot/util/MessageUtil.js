@@ -33,17 +33,6 @@ function checkQueue() {
     const message = messageQueue.dequeue();
 
     startMessage(message.botReply, message.discordMessage);
-/*
-    console.log("Is it an array?");
-
-    if (Array.isArray(message.botReply)) {
-        for (const s of message.botReply) {
-            if (typeof s != 'string') continue;
-            startMessage(s, message.discordMessage);
-        }
-    } else if (typeof message.botReply == 'string') {
-        startMessage(message.botReply, message.discordMessage);
-    }*/
 }
 
 /**
