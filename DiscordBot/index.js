@@ -7,7 +7,7 @@ client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 client.once('ready', () => {
-	console.log('Ready!');
+    console.log('Ready!');
 });
 
 for (const file of commandFiles) {
@@ -20,21 +20,32 @@ client.on('message', discordMessage => {
     if (!discordMessage.content.startsWith(PREFIX) || discordMessage.author.bot) return;
     // console.log(message.author.username + ": " + message.content);
 
-    const args = discordMessage.content.slice(PREFIX.length).trim().split(/ +/);
-    const commandName = args.shift().toLowerCase();
+    if (discordMessage.content.startsWith(PREFIX)) { //If the message has a prefix
 
-    // the following 2 lines allow aliases
-    const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-    if (!command) return;
+        const args = discordMessage.content.slice(PREFIX.length).trim().split(/ +/);
+        const commandName = args.shift().toLowerCase();
 
-    console.log(discordMessage.content);
+        // the following 2 lines allow aliases
+        const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+        if (!command) return;
 
-    try {
-        command.execute(discordMessage, args);
-    } catch (error) {
-        console.error(error);
-        discordMessage.reply('there was an error trying to execute that command.');
+        //bot.respond("lasodasd", discordMessage);
+
+        console.log(discordMessage.content);
+
+        try {
+            command.execute(discordMessage, args);
+        } catch (error) {
+            console.error(error);
+            discordMessage.reply('there was an error trying to execute that command.');
+        }
+
+    } else { // open conversation
+
+
+        discordMessage.channel.send("Are you talkin to me bish")
+
     }
 });
 
-client.login(`${TOKEN}`);
+client.login(TOKEN);
