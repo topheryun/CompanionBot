@@ -1,10 +1,9 @@
 let genericResponses = [
-    "Personally, it's",
+    "Personally, its",
     "Mine is",
     "I'd have to go with",
-    "In my opinion"
+    "In my opinion, its"
 ]
-
 
 let positiveResponses = [
     "My favorite is",
@@ -12,6 +11,13 @@ let positiveResponses = [
     "The best one is"
 ]
 
+let positiveWords = [
+    "favorite",
+    "best",
+    "greatest",
+    "awesome",
+    "fantastic"
+]
 
 let negativeResponses = [
     "Ugh, its",
@@ -19,8 +25,20 @@ let negativeResponses = [
     "I guess it'd have to be"
 ]
 
+let negativeWords = [
+    "worst",
+    "least favorite",
+    "lamest",
+    "garbage",
+    "trash",
+    "shit",
+    "dumpster"
+]
+
 module.exports = {
     genericResponses,
     positiveResponses,
-    negativeResponses
+    positiveWords,
+    negativeResponses,
+    negativeWords
 }
