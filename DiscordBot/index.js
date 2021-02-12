@@ -17,23 +17,36 @@ for (const file of commandFiles) {
 
 client.on('message', message => {
 
-    if (!message.content.startsWith(PREFIX) || message.author.bot) return;
-    // console.log(message.author.username + ": " + message.content);
+    if(message.channel.id === '809828317641048074'){
 
-    const args = message.content.slice(PREFIX.length).trim().split(/ +/);
-    const commandName = args.shift().toLowerCase();
+        if(!message.author.bot) {
 
-    // the following 2 lines allow aliases
-    const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-    if (!command) return;
+            if (!message.content.startsWith(PREFIX)) { //Open Conversation
+                
+                
+                message.channel.send(`${message.content} is an interesting point`)
+                
 
-    console.log(message.content);
+            } else {
+                // console.log(message.author.username + ": " + message.content);
 
-    try {
-        command.execute(message, args);
-    } catch (error) {
-        console.error(error);
-        message.reply('there was an error trying to execute that command.');
+                const args = message.content.slice(PREFIX.length).trim().split(/ +/);
+                const commandName = args.shift().toLowerCase();
+
+                // the following 2 lines allow aliases
+                const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+                if (!command) return;
+
+                console.log(message.content);
+
+                try {
+                    command.execute(message, args);
+                } catch (error) {
+                    console.error(error);
+                    message.reply('there was an error trying to execute that command.');
+                }
+            }
+        }
     }
 });
 
