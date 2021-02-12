@@ -6,6 +6,8 @@ function parseDiscordMessage(discordMessage) {
     userMessage = userMessage.replace(/\?/g,'');
     const args = userMessage.trim().split(/ +/);
 
+    console.log(args);
+
     return properKeywords(args);
 }
 
@@ -31,6 +33,7 @@ function checkNextKeyword(args, i) {
                 return arg + " " + args[i];
             else if (args[i].localeCompare("voice") == 0 || args[i].localeCompare("va") == 0)
                 return arg + " va";
+        default: return arg;
     }
 }
 

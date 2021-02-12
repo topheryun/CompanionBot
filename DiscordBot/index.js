@@ -42,7 +42,7 @@ client.on('message', discordMessage => {
 
     } else { // open conversation
         keyword = parseDiscordMessage(discordMessage);
-        if (keyword == null) discordMessage.channel.send(`I don't know what you mean by "${discordMessage.content}"`);
+        if (keyword == null || keyword.localeCompare("") == 0) discordMessage.channel.send(`I don't know what you mean by "${discordMessage.content}"`);
         else {
             //if(positive =)
             getWordFromKey(discordMessage, keyword);
