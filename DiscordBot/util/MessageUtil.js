@@ -1,39 +1,76 @@
-message.channel.startTyping();
-/*
-            let msg = "I've found my ansr!";
+const {Queue} = require("./Queue.js");
 
-            setTimeout(() => {
-                message.channel.send("I've found my ansr!")
-            }, calculateLength(msg));
+// How long the bot waits to start typing a reply
+const replyDelay = 1000;
+// The amount of time (ms) it takes to 'write' each character in the response
+const typingDelay = 100;
 
-            setTimeout(() => {
-                message.channel.send("sorry")
-            }, calculateLength(msg += "sorry"));
-            */
+let messageQueue = new Queue();
 
 /**
- * 
- * @param {String} botResponse - The message or messages array to be sent by the bot
+ * Responds to the given message with a custom response
+ * @param {String | String[]} botReply - The message or messages array to be sent by the bot
+ * @param {Object} discordMessage - The discord message object
  */
-function sendMessage(botResponse, discordMessage) {
-    if (Array.isArray(botResponse)) {
-        for (const s of botResponse) {
-            if (typeof s != "string") continue;
-
+function reply(botReply, discordMessage) {
+    if(Array.isArray(botReply)){
+        for(const s of botReply){
+            if (typeof s != 'string') continue;
+            messageQueue.enqueue({botReply: s, discordMessage});
         }
-    } else if (typeof s == "string") {
-        startMessage(botResponse);
+    } else if (typeof botReply == 'string') {
+        messageQueue.enqueue({botReply, discordMessage});
     }
+    checkQueue();
+}
 
+/**
+ * Checks the queue and starts the next message if one exists
+ */
+function checkQueue() {
+    if(messageQueue.isEmpty()) return;
+
+    const message = messageQueue.dequeue();
+
+    startMessage(message.botReply, message.discordMessage);
+/*
+    console.log("Is it an array?");
+
+    if (Array.isArray(message.botReply)) {
+        for (const s of message.botReply) {
+            if (typeof s != 'string') continue;
+            startMessage(s, message.discordMessage);
+        }
+    } else if (typeof message.botReply == 'string') {
+        startMessage(message.botReply, message.discordMessage);
+    }*/
+}
+
+/**
+ * Begins the messaging process
+ * @param {String} botReply - The message or messages array to be sent by the bot
+ * @param {Object} discordMessage - The discord message object
+ */
+async function startMessage(botReply, discordMessage) {
     setTimeout(() => {
-
-    }, (100))
+        discordMessage.channel.startTyping();
+        setTimeout(() => {
+            discordMessage.channel.send(botReply);
+            discordMessage.channel.stopTyping();
+            checkQueue();
+        }, calculateLength(botReply));
+    }, replyDelay);
 }
 
-function startMessage(botResponse) {
-    
+/**
+ * Calculates how long it will take the bot to 'type' out the given reply.
+ * @param {String} botReply - The reply the bot is going to send
+ * @returns {Number} - The time in ms it would take to type out the reply
+ */
+function calculateLength(botReply) {
+    return String(botReply).length * typingDelay;
 }
 
-function calculateLength(botResponse) {
-    if (typeof message != "string") return;
+module.exports = {
+    reply
 }

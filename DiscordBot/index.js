@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const { PREFIX, TOKEN } = require('./config.json');
+const { getWordFromKey } = require('./util/get-word-from-key');
+const { CHANNEL, PREFIX, TOKEN } = require('./config.json');
+const { parseDiscordMessage } = require('./util/message-parser');
 const client = new Discord.Client();
 
 client.commands = new Discord.Collection();
@@ -17,7 +19,7 @@ for (const file of commandFiles) {
 
 client.on('message', discordMessage => {
 
-    if(discordMessage.channel.id != `809828317641048074`) return; //returns if the message is not in the designated channel
+    if(discordMessage.channel.id != CHANNEL) return; //returns if the message is not in the designated channel
     if(discordMessage.author.bot) return; // returns if the msg is by the bot
 
     if (discordMessage.content.startsWith(PREFIX)) { //If the message has a prefix
@@ -29,9 +31,8 @@ client.on('message', discordMessage => {
         const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
         if (!command) return;
 
-        //bot.respond("lasodasd", discordMessage);
-
         console.log(discordMessage.content);
+        discordMessage.content = "ping";
 
         try {
             command.execute(discordMessage, args);
@@ -41,10 +42,11 @@ client.on('message', discordMessage => {
         }
 
     } else { // open conversation
-
-
-        discordMessage.channel.send("Are you talkin to me bish")
-
+        args = parseDiscordMessage(discordMessage);
+        if (args == null) discordMessage.channel.send(`I don't know what you mean by "${discordMessage.content}"`);
+        else { 
+            getWordFromKey(discordMessage, args);
+        }
     }
 });
 
