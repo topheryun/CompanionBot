@@ -2,6 +2,8 @@ class CompanionBot {
 
     messageCount = 0;
 
+    friend;
+
     constructor() {
 
     }

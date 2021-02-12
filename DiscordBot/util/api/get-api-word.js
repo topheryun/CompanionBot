@@ -10,7 +10,7 @@ async function getApiWordPostAppend(key) {
     do {
         response = await fetch(value.URL + randomNumber + "/" + value.APPEND + "/");
     } while (response.status != 200)
-    console.log(response);
+    //console.log(response);
 
     let data = await response.json();
     return returnType(key, data);
