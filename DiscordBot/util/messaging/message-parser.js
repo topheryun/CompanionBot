@@ -22,6 +22,8 @@ function properKeywords(args) {
 function checkNextKeyword(args, i) {
     let arg = args[i++];
 
+    if (i >= args.length) return arg;
+
     switch (arg) {
         case "anime": 
             if (args[i].localeCompare("character") == 0 || args[i].localeCompare("director") == 0 ||
