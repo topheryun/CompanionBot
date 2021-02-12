@@ -18,15 +18,9 @@ for (const file of commandFiles) {
 }
 
 client.on('message', discordMessage => {
-<<<<<<< HEAD
 
     if(discordMessage.channel.id != CHANNEL) return; //returns if the message is not in the designated channel
     if(discordMessage.author.bot) return; // returns if the msg is by the bot
-=======
-    if (discordMessage.channel.id != "809473454406369300") return;
-    if (!discordMessage.content.startsWith(PREFIX) || discordMessage.author.bot) return;
-    // console.log(message.author.username + ": " + message.content);
->>>>>>> 3d985cdfa25845603704a012367ac2a9456fd61d
 
     if (discordMessage.content.startsWith(PREFIX)) { //If the message has a prefix
 
