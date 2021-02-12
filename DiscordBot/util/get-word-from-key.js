@@ -1,6 +1,6 @@
 const { getApiWordPostAppend } = require("./api/get-api-word");
 const { getRandomInteger } = require("./MathUtil")
-const { genericResponses, positiveResponses, negativeResponses } = require("./generic-responses")
+const { genericResponses, positiveResponses, negativeResponses } = require("./messaging/generic-responses")
 
 
 const name = "default";
@@ -11,7 +11,7 @@ async function getWordFromKey(discordMessage, args) {
     let data = await getApiWordPostAppend(key);
 
     let randomInt = getRandomInteger(0, genericResponses.length);
-    let message = `${genericResponses[randomInt]}${data}`
+    let message = `${genericResponses[randomInt]} ${data}`
 
     discordMessage.channel.send(message);
 }
