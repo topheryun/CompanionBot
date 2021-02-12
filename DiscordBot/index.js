@@ -15,27 +15,27 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
-client.on('message', message => {
+client.on('message', discordMessage => {
 
-    if (message.channel.id != "809828331155357717") return
-
-    if (!message.content.startsWith(PREFIX) || message.author.bot) return;
+    if (!discordMessage.content.startsWith(PREFIX) || discordMessage.author.bot) return;
     // console.log(message.author.username + ": " + message.content);
 
-    const args = message.content.slice(PREFIX.length).trim().split(/ +/);
+    const args = discordMessage.content.slice(PREFIX.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
 
     // the following 2 lines allow aliases
     const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     if (!command) return;
 
-    console.log(message.content);
+    bot.respond("lasodasd", discordMessage);
+
+    console.log(discordMessage.content);
 
     try {
-        command.execute(message, args);
+        command.execute(discordMessage, args);
     } catch (error) {
         console.error(error);
-        message.reply('there was an error trying to execute that command.');
+        discordMessage.reply('there was an error trying to execute that command.');
     }
 });
 
