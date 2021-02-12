@@ -18,25 +18,34 @@ for (const file of commandFiles) {
 
 client.on('message', discordMessage => {
 
-    if (!discordMessage.content.startsWith(PREFIX) || discordMessage.author.bot) return;
-    // console.log(message.author.username + ": " + message.content);
+    if(discordMessage.channel.id != `809828317641048074`) return; //returns if the message is not in the designated channel
+    if(discordMessage.author.bot) return; // returns if the msg is by the bot
 
-    const args = discordMessage.content.slice(PREFIX.length).trim().split(/ +/);
-    const commandName = args.shift().toLowerCase();
+    if (discordMessage.content.startsWith(PREFIX)) { //If the message has a prefix
 
-    // the following 2 lines allow aliases
-    const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-    if (!command) return;
+        const args = discordMessage.content.slice(PREFIX.length).trim().split(/ +/);
+        const commandName = args.shift().toLowerCase();
 
-    //bot.respond("lasodasd", discordMessage);
+        // the following 2 lines allow aliases
+        const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+        if (!command) return;
 
-    console.log(discordMessage.content);
+        //bot.respond("lasodasd", discordMessage);
 
-    try {
-        command.execute(discordMessage, args);
-    } catch (error) {
-        console.error(error);
-        discordMessage.reply('there was an error trying to execute that command.');
+        console.log(discordMessage.content);
+
+        try {
+            command.execute(discordMessage, args);
+        } catch (error) {
+            console.error(error);
+            discordMessage.reply('there was an error trying to execute that command.');
+        }
+
+    } else { // open conversation
+
+
+        discordMessage.channel.send("Are you talkin to me bish")
+
     }
 });
 
