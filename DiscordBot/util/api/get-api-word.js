@@ -47,14 +47,22 @@ async function getTaco(discordMessage, key) {
     let response = await fetch(value.URL);
     if (response.status === 200) {
         let data = await response.json();
-        // add taco suggestion prepends
-        let message = `My favorite combo would be ${data.shell.name} with ${data.base_layer.name} 
-        seasoned with ${data.seasoning.name}. Some ${data.mixin.name} and ${data.condiment.name} on top!`;
+        let message = `My favorite combo would be ${data.shell.name} with ${data.base_layer.name} seasoned with ${data.seasoning.name}. Some ${data.mixin.name} and ${data.condiment.name} on top!`;
         discordMessage.channel.send(message);
+    }
+}
+
+async function quoteSwanson(discordMessage, key) {
+    value = apiMap.get(key);
+    let response = await fetch(value.URL);
+    if (response.status === 200) {
+        let data = await response.json();
+        discordMessage.channel.send(data);
     }
 }
 
 module.exports = {
     getApiWordAppend,
-    getTaco
+    getTaco,
+    quoteSwanson
 }
