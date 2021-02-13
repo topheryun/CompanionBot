@@ -34,6 +34,7 @@ let apiMap = new Map([
     // physical database
     ["cat", ""],
     ["holiday", ""],
+    ["number", ""],
 ]);
 
 module.exports = { apiMap }

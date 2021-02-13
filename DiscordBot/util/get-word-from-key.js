@@ -2,7 +2,7 @@ const { catArray } = require("../arrays/cat-array");
 const { getApiWordAppend, getTaco, getQuote, getCocktail, programmingJoke, 
     quoteSwanson, getApiWord, chuckNorris, getTrivia } = require("./api/get-api-word");
 const { holidayArray } = require("../arrays/holiday-array");
-const { getRandomInteger } = require("./MathUtil")
+const { getRandomInteger, getRandomDouble } = require("./MathUtil")
 const { genericResponses, positiveResponses, negativeResponses } = require("./messaging/generic-responses")
 
 async function getWordFromKey(discordMessage, args, modifier) {
@@ -22,6 +22,10 @@ async function getWordFromKey(discordMessage, args, modifier) {
         choice = getRandomInteger(0, holidayArray.length - 1);
         data = holidayArray[choice];
         sendMessage(discordMessage, data, modifier);
+    }
+    else if (key.localeCompare("number") == 0) {
+        choice = getRandomDouble(-10000,10000);
+        sendMessage(discordMessage, choice, modifier);
     }
     // taco
     else if (key.localeCompare("taco") == 0) {
