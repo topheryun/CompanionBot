@@ -48,7 +48,7 @@ async function getWordFromKey(discordMessage, args, modifier) {
         quoteSwanson(discordMessage, key);
     }
     // chuck norris joke
-    else if (key.localeCompare("chuck") == 0) {
+    else if (key.localeCompare("chuck norris") == 0) {
         chuckNorris(discordMessage, key);
     }
     // programming joke

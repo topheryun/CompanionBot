@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,14 @@ public class CompanionBotController {
 	public void saveConfiguration(@RequestBody CompanionBot companionBot) {
 		companionBotService.saveConfiguration(companionBot);
 		System.out.println("Configuration Updated");
+	}
+	
+	@PutMapping("/{affection}") 
+	public void setAffection(@RequestBody CompanionBot companionBot, @PathVariable("affection") int affection) {
+		companionBot = companionBotService.findByUserId(companionBot.getUserId());
+		companionBot.setAffection(affection);
+		companionBotService.saveConfiguration(companionBot);
+		System.out.println("Affection Updated");
 	}
 	
 	@GetMapping("/{userId}")
