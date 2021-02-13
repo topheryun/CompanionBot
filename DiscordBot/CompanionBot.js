@@ -4,6 +4,8 @@ class CompanionBot {
 
     friend;
 
+    affection = 0;
+
     constructor() {
 
     }

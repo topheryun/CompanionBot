@@ -16,6 +16,8 @@ async function getWordFromKey(discordMessage, args) {
     discordMessage.channel.send(message);
 }
 
+// idea for not just appending data, but having the key word in the middle
+
 module.exports = {
     name,
     description, 
