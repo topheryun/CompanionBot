@@ -1,6 +1,5 @@
 const { apiMap } = require("../api/api-map");
 const { messageModifiers } = require("./generic-responses")
-const { maleArray, femaleArray, nonBinaryArray }
 
 function parseDiscordMessage(discordMessage) {
     let userMessage = discordMessage.content.toLowerCase();
@@ -67,7 +66,22 @@ function isModifier(word) { //Modifier as in positive and negative words
     return 2
 }
 
+function checkConfigPhrase(discordMessage) {
+    let message = String(discordMessage.content).toLowerCase();
+    
+    switch (message) {
+        case "who are you":
+        case "who are you?":
+        case "hello":
+        case "hello?":
+
+            return true;
+        default: return false;
+    }
+}
+
 module.exports = {
     parseDiscordMessage,
-    isModifier
+    isModifier,
+    checkConfigPhrase
 }

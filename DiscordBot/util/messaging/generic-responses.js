@@ -64,11 +64,22 @@ let messageModifiers = new Map([
     ["dumpster", -1],
 ]);
 
+let greetings = [
+    "Hi", "Hello", "Greetings", "Whats up", "Yo",
+    "Salutations", "Welcome", "Good Day", "Nice to meet you",
+    "It's nice to meet you", "Hiya", "Hi there",
+    "Pleasure to meet you", "It's a pleasure to meet you",
+    "Hello there", "Howdy", "Good to see you", "Nice to see you",
+    "What's happening", "What's happenin", "What's up", "Hey",
+    "Hey there", "Sup", "Wassup"
+];
+
 //if wordTone.has(fantastic), then wordtone.get(fantastic)
 
 module.exports = {
     genericResponses,
     positiveResponses,
     negativeResponses,
-    messageModifiers
+    messageModifiers,
+    greetings
 }
