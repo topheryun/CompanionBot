@@ -36,7 +36,7 @@
 - Taco http://taco-randomizer.herokuapp.com/random/ [generates random taco]
 - Chuck Norris Jokes https://api.icndb.com/jokes/${number} [1-619]
 - > Programming Jokes https://v2.jokeapi.dev/joke/programming/${number} [1-100000] [has two different types]
-- > Trivia https://opentdb.com/api.php?amount=1 [gives one random trivia]
+- Trivia https://opentdb.com/api.php?amount=1 [gives one random trivia]
 - > Music Genre https://binaryjazz.us/wp-json/genrenator/v1/genre/ [generates a made up genre]
 - > Music Genre http://developers.music-story.com/developers/genre [response is xml (real genres)]
 - Quotes https://api.quotable.io/random [gets random quote]

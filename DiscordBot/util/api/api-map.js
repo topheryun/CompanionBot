@@ -17,7 +17,6 @@ let apiMap = new Map([
     ["got", ""], // needs to search for full phrase
     ["got character", { URL: "https://anapioficeandfire.com/api/characters/", APPEND: "", MAX_RANGE: 2138 }],
 
-    
 
     // single json return
     ["taco", { URL: "http://taco-randomizer.herokuapp.com/random/" }],
