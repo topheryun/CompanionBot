@@ -11,6 +11,7 @@ const pictures = require("./arrays/pic-array")
 const { parseDiscordMessage, isModifier, checkConfigPhrase } = require("./util/messaging/message-parser");
 const { greetings } = require('./util/messaging/generic-responses');
 const { getRandomInteger } = require('./util/MathUtil');
+const { affectionResponse } = require('./util/messaging/affection');
 
 const client = new Discord.Client();
 
@@ -64,14 +65,13 @@ client.on('message', discordMessage => {
 
             if (messageTone == 0)
                 messageTone = isModifier(word)
-
         }
 
         if (botInstance.friend == discordMessage.author) {
 
             botInstance.affection += 3;
 
-            let keyword = parseDiscordMessage(discordMessage);
+            let keyword = parseDiscordMessage(discordMessage); // parsing
             console.log(`keyword: ${keyword}`)
             if (keyword == null || keyword.localeCompare("") == 0)
                 messaging.reply(`I don't know what you mean by "${discordMessage.content}"`, discordMessage); //fixable if the user is just chatting
@@ -81,8 +81,12 @@ client.on('message', discordMessage => {
                     let embed = getEmbed();
                     discordMessage.channel.send(embed);
 
-                } else {
-                    getWordFromKey(discordMessage, keyword, messageTone);
+                }
+                else if (keyword.localeCompare("i love you") == 0) {
+                    affectionResponse(discordMessage);
+                } 
+                else {
+                    getWordFromKey(discordMessage, keyword, messageTone); // getting from api
                 }
             }
         } else {

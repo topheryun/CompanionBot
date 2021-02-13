@@ -14,8 +14,6 @@ function properKeywords(args) {
     for (let i = 0; i < args.length; i++) {
         if (apiMap.has(args[i])) {
             return checkNextKeyword(args, i);
-        } else if(args[i].localeCompare("pic") == 0 || args[i].localeCompare("picture") == 0) {
-            return "picture";
         }
     }
     return arg;
@@ -54,6 +52,11 @@ function checkNextKeyword(args, i) {
         case "super":
             if (args[i].localeCompare("hero") == 0)
                 return "superhero";
+        case "pic":
+        case "picture": return "picture";
+        case "i": 
+            if (args[i++].localeCompare("love") == 0 && args[i].localeCompare("you") == 0)
+                return "i love you";
         default: return arg;
     }
 }
