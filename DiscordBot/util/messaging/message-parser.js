@@ -34,6 +34,12 @@ function checkNextKeyword(args, i) {
         case "manga":
             if (args[i].localeCompare("author") == 0)
                 return "mangaka";
+        case "chuck":
+            if (args[i].localeCompare("norris") == 0)
+                return "chuck norris";
+        case "star":
+            if (args[i++].localeCompare("wars") == 0 && args[i].localeCompare("character") == 0)
+                return "star wars character";
         default: return arg;
     }
 }

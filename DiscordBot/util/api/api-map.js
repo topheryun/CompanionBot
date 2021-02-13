@@ -12,6 +12,12 @@ let apiMap = new Map([
     ["brewery", { URL: "https://api.openbrewerydb.org/breweries/", APPEND: "", MAX_RANGE: 8033}],
     ["quote", { URL: "https://api.quotable.io/random/", APPEND: "", MAX_RANGE: 0}],
     ["cocktail", { URL: "https://www.thecocktaildb.com/api/json/v1/1/random.php", APPEND: "", MAX_RANGE: 0}],
+    ["chuck", ""], // needs to search for full word
+    ["chuck norris", { URL: "https://api.icndb.com/jokes/", APPEND: "", MAX_RANGE: 619 }],
+    ["star", ""], // needs to search for full word
+    ["star wars character", { URL: "https://www.swapi.tech/api/people/", APPEND: "", MAX_RANGE: 83 }],
+    
+
 
     // single json return
     ["taco", { URL: "http://taco-randomizer.herokuapp.com/random/" }],
@@ -22,6 +28,7 @@ let apiMap = new Map([
     
     // physical database
     ["cat", ""],
+    ["holiday", ""],
 ]);
 
 module.exports = { apiMap }
