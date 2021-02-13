@@ -89,7 +89,6 @@ client.on('message', discordMessage => {
 
             getWordFromKey(discordMessage, keyword, messageTone);
         }
-
     }
 });
 
