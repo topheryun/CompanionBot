@@ -9,6 +9,9 @@ let apiMap = new Map([
     ["anime va", { URL: "https://api.jikan.moe/v3/anime/", APPEND: "characters_staff", MAX_RANGE: 4260 }],
     ["manga", { URL: "https://api.jikan.moe/v3/manga/", APPEND: "", MAX_RANGE: 797 }],
     ["mangaka", { URL: "https://api.jikan.moe/v3/manga/", APPEND: "", MAX_RANGE: 797 }],
+    ["brewery", { URL: "https://api.openbrewerydb.org/breweries/", APPEND: "", MAX_RANGE: 8033}],
+    ["quote", { URL: "https://api.quotable.io/random/", APPEND: "", MAX_RANGE: 0}],
+    ["cocktail", { URL: "https://www.thecocktaildb.com/api/json/v1/1/random.php", APPEND: "", MAX_RANGE: 0}],
 
     // single json return
     ["taco", { URL: "http://taco-randomizer.herokuapp.com/random/" }],

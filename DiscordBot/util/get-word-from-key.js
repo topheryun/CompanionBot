@@ -1,5 +1,5 @@
 const { catArray } = require("../arrays/cat-array");
-const { getApiWordAppend, getTaco, quoteSwanson, getApiWord } = require("./api/get-api-word");
+const { getApiWordAppend, getTaco, getQuote, getCocktail, quoteSwanson, getApiWord } = require("./api/get-api-word");
 const { getRandomInteger } = require("./MathUtil")
 const { genericResponses, positiveResponses, negativeResponses } = require("./messaging/generic-responses")
 
@@ -17,6 +17,14 @@ async function getWordFromKey(discordMessage, args, modifier) {
     // taco
     else if (key.localeCompare("taco") == 0) {
         getTaco(discordMessage, key);
+    }
+    // quote
+    else if (key.localeCompare("quote") == 0) {
+        getQuote(discordMessage, key);
+    }
+    // cocktail
+    else if (key.localeCompare("cocktail") == 0) {
+        getCocktail(discordMessage, key);
     }
     // ron swanson
     else if (key.localeCompare("ron") == 0 || key.localeCompare("swanson") == 0) {

@@ -86,7 +86,7 @@ client.on('message', discordMessage => {
         if (keyword == null || keyword.localeCompare("") == 0) 
             messaging.reply(`I don't know what you mean by "${discordMessage.content}"`, discordMessage); //fixable if the user is just chatting
         else {
-
+            console.log(keyword)
             getWordFromKey(discordMessage, keyword, messageTone);
         }
     }
