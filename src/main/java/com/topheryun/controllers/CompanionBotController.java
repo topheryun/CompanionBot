@@ -28,6 +28,7 @@ public class CompanionBotController {
 	@GetMapping("/{userId}")
 	public ResponseEntity<CompanionBot> getConfiguration(@PathVariable("userId") String userId) {
 		CompanionBot companionBot = companionBotService.findByUserId(userId);
+		System.out.println("The object being returned: " + companionBot);
 		if (companionBot == null)
 			return ResponseEntity.status(418).build();
 		else return ResponseEntity.status(200).body(companionBot);
