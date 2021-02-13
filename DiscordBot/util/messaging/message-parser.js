@@ -54,6 +54,9 @@ function checkNextKeyword(args, i) {
                 return "superhero";
         case "pic":
         case "picture": return "picture";
+        case "i": 
+            if (args[i++].localeCompare("love") == 0 && args[i].localeCompare("you") == 0)
+                return "i love you";
         default: return arg;
     }
 }

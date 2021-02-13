@@ -40,6 +40,7 @@ let apiMap = new Map([
     // misc
     ["pic", ""],
     ["picture", ""],
+    ["i", ""],
 ]);
 
 module.exports = { apiMap }
