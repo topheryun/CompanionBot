@@ -19,17 +19,20 @@ client.once('ready', () => {
 });
 
 client.on('message', discordMessage => {
+
     if (discordMessage.channel.id != CHANNEL) return; //returns if the message is not in the designated channel
     if (discordMessage.author.bot) return; // returns if the msg is by the bot
+
+    
 
     botInstance.messageCount++;
     let msg = discordMessage.content.toLowerCase();
     const messageArray = msg.trim().split(/ +/);
     let messageTone = 0; //-1 is negative, 0 is generic, 1 is positive
 
-    // botInstance.friend = discordMessage.author.id; // for testing
-    // botInstance.gender = "f";
-    // botInstance.imageURL = pictures.femaleImages[2];
+    //botInstance.friend = discordMessage.author; // for testing
+    //botInstance.gender = "f";
+    //botInstance.imageURL = pictures.femaleImages[2];
 
     if (!botInstance.friend) { //Config phase  
         let pingCheck = false;
@@ -48,11 +51,7 @@ client.on('message', discordMessage => {
         for (let word of messageArray) {
             if (getUserFromMention(word) == `807289535184109618`) { //If Scraper bot is mentioned at all
 
-                // if (!botInstance.friend) {
-                //     messaging.reply([`You seem cool ${discordMessage.author.username} let's hang out 😜!`], discordMessage);
-                //     botInstance.friend = discordMessage.author;
-                // }
-                /*else */if (botInstance.friend == discordMessage.author) {
+                if (botInstance.friend == discordMessage.author) {
                     if (String(discordMessage.content).toLowerCase().includes('i hate you')) {
                         messaging.reply(`💔😭😭😭😭 You're the ***WORST*** ${botInstance.friend.username}. I don't want to talk to you anymore!`, discordMessage);
                         botInstance.friend = null;
@@ -68,12 +67,9 @@ client.on('message', discordMessage => {
 
         }
 
-        console.log("MESSAGE TONE IS " + messageTone)
+        if (botInstance.friend == discordMessage.author) {
 
-
-        if (botInstance.friend == discordMessage.author.id) {
-
-            botInstance.affection++;
+            botInstance.affection += 3;
 
             let keyword = parseDiscordMessage(discordMessage);
             console.log(`keyword: ${keyword}`)
@@ -81,10 +77,6 @@ client.on('message', discordMessage => {
                 messaging.reply(`I don't know what you mean by "${discordMessage.content}"`, discordMessage); //fixable if the user is just chatting
             else {
                 if (keyword.localeCompare("picture") == 0) {
-                    console.log("id:" + discordMessage.author.id);
-
-                    console.log(discordMessage.guild.members.get(807289535184109618))
-                    console.log(discordMessage.guild.members.get(807289535184109618).username)
 
                     let embed = getEmbed();
                     discordMessage.channel.send(embed);
@@ -104,7 +96,7 @@ async function setBotName(discordMessage) {
     const nameCollector = discordMessage.channel.createMessageCollector(filter, { max: 1, time: 20000 });
     await nameCollector.on('collect', message => {
         console.log(`Collected ${message.content}`);
-        // set bot's name with message.content
+        client.user.setUsername(message.content);
         discordMessage.channel.send("What is my gender?");
         setBotGender(discordMessage);
     });
@@ -116,7 +108,8 @@ async function setBotGender(discordMessage) {
     await genderCollector.on('collect', message => {
         console.log(`Collected ${message.content}`);
         configBotGender(message.content);
-        botInstance.friend = discordMessage.author.id;
+        botInstance.friend = discordMessage.author;
+        discordMessage.channel.send(getEmbed())
     });
 }
 
@@ -129,34 +122,30 @@ function getUserFromMention(mention) {
         if (mention.startsWith('!')) {
             mention = mention.slice(1);
         }
-
         console.log(mention)
         return client.users.cache.get(mention);
     }
 }
 
-function getEmbed(botName) {
+function getEmbed() {
+    let image = "";
+    if (botInstance.gender == "m") {
+        let rng = getRandomInteger(0, pictures.maleImages.length - 1);
+        image = pictures.maleImages[rng];
+    } else if (botInstance.gender == "f") {
+        let rng = getRandomInteger(0, pictures.femaleImages.length - 1);
+        image = pictures.femaleImages[rng];
+    } else {
+        let rng = getRandomInteger(0, pictures.nonBinaryImages.length - 1);
+        image = pictures.nonBinaryImages[rng];
+    }
 
-        let image = "";
-        if (botInstance.gender == "m") {
-            let rng = getRandomInteger(0, pictures.maleImages.length - 1);
-            image = pictures.maleImages[rng];
-        } else if (botInstance.gender == "f") {
-            let rng = getRandomInteger(0, pictures.femaleImages.length - 1);
-            image = pictures.femaleImages[rng];
-        } else {
-            let rng = getRandomInteger(0, pictures.nonBinaryImages.length - 1);
-            image = pictures.nonBinaryImagesImages[rng];
-        }
-
-        const embed = new Discord.MessageEmbed()
-            .setColor('#FFC0CB')
-            .addField(`${botName} likes ${botInstance.friend.username}`)
-             //  helper function to convert affection number to a string description
-            .addField('Affection', botInstance.affection, true) //affection -- data.affection
-            .setImage(image) //IMAGE URL
-
-        return embed
+    const embed = new Discord.MessageEmbed()
+        .setColor('#FFC0CB')
+        .setTitle( client.user.username )
+        .addField( `${client.user.username} likes ${botInstance.friend.username}`, `Affection ${botInstance.affection}` )
+        .setImage(image)
+    return embed
 }
 
 client.login(TOKEN);

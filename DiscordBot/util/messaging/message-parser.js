@@ -63,7 +63,7 @@ function isModifier(word) { //Modifier as in positive and negative words
     if(messageModifiers.has(word)){
         return messageModifiers.get(word);
     }
-    return 2
+    return 0
 }
 
 function checkConfigPhrase(discordMessage) {
