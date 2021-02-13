@@ -7,12 +7,16 @@ let apiMap = new Map([
     ["anime character", { URL: "https://api.jikan.moe/v3/anime/", APPEND: "characters_staff", MAX_RANGE: 4260 }],
     ["anime director", { URL: "https://api.jikan.moe/v3/anime/", APPEND: "characters_staff", MAX_RANGE: 4260 }],
     ["anime va", { URL: "https://api.jikan.moe/v3/anime/", APPEND: "characters_staff", MAX_RANGE: 4260 }],
+    ["manga", { URL: "https://api.jikan.moe/v3/manga/", APPEND: "", MAX_RANGE: 797 }],
+    ["mangaka", { URL: "https://api.jikan.moe/v3/manga/", APPEND: "", MAX_RANGE: 797 }],
 
     // single json return
     ["taco", { URL: "http://taco-randomizer.herokuapp.com/random/" }],
-    ["ron", { URL: "http://ron-swanson-quotes.herokuapp.com/v2/quotes/"}],
-    ["swanson", { URL: "http://ron-swanson-quotes.herokuapp.com/v2/quotes/"}],
-
+    ["ron", { URL: "http://ron-swanson-quotes.herokuapp.com/v2/quotes/" }],
+    ["swanson", { URL: "http://ron-swanson-quotes.herokuapp.com/v2/quotes/" }],
+    ["country", { URL: "https://www.thesportsdb.com/api/v1/json/1/all_countries.php" }],
+    ["sport", { URL: "https://www.thesportsdb.com/api/v1/json/1/all_sports.php" }],
+    
     // physical database
     ["cat", ""],
 ]);

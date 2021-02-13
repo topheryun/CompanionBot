@@ -6,10 +6,12 @@ async function getApiWordAppend(key) {
     value = apiMap.get(key);
     let randomNumber = getRandomInteger(1, value.MAX_RANGE);
     let response;
+    let timeOut = 0;
 
     do {
         response = await fetch(value.URL + randomNumber + "/" + value.APPEND + "/");
-    } while (response.status != 200)
+        timeOut++;
+    } while (response.status != 200 || timeOut >= 25)
     
     let data = await response.json();
     return returnType(key, data);
@@ -24,7 +26,7 @@ function returnType(key, data) {
         case "anime genre": return data.genres[0].name; // data["genres"][0]["name"]
         case "anime character": 
             if (data.characters.length == 0) return "";
-            choice = getRandomInteger(0, data.characters.length);
+            choice = getRandomInteger(0, data.characters.length - 1);
             return data.characters[choice].name;
         case "anime director": 
             if (data.staff.length == 0) return "";
@@ -37,9 +39,28 @@ function returnType(key, data) {
             return "";
         case "anime va": 
             if (data.characters.length == 0) return "";
-            choice = getRandomInteger(0, data.characters.length);
+            choice = getRandomInteger(0, data.characters.length - 1);
             return data.characters[choice].voice_actors[0].name;
+        case "manga": return data.title;
+        case "mangaka": return data.authors[0].name;
+        case "country":
+            choice = getRandomInteger(0, data.countries.length - 1);
+            return data.countries[choice].name_en;
+        case "sport":
+            choice = getRandomInteger(0, data.sports.length - 1);
+            return data.sports[choice].strSport;
     }
+}
+
+async function getApiWord(key) {
+    value = apiMap.get(key);
+    let response = await fetch(value.URL);
+
+    if (response.status === 200) {
+        let data = await response.json();
+        return returnType(key, data);
+    }
+    return null;
 }
 
 async function getTaco(discordMessage, key) {
@@ -63,6 +84,7 @@ async function quoteSwanson(discordMessage, key) {
 
 module.exports = {
     getApiWordAppend,
+    getApiWord,
     getTaco,
     quoteSwanson
 }
