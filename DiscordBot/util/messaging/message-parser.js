@@ -1,5 +1,5 @@
 const { apiMap } = require("../api/api-map");
-const { positiveWords, negativeWords } = require("./generic-responses")
+const { messageModifiers } = require("./generic-responses")
 
 function parseDiscordMessage(discordMessage) {
     let userMessage = discordMessage.content.toLowerCase();
@@ -37,23 +37,15 @@ function checkNextKeyword(args, i) {
     }
 }
 
-function parseDiscordMessageforModifier(discordMessage) { //Modifier as in positive and negative words
-    let userMessage = discordMessage.content.toLowerCase();
-    // remove question mark
-    const args = userMessage.trim().split(/ +/);
+function isModifier(word) { //Modifier as in positive and negative words
 
-    return properModifiers(args);
-}
-
-function properModifiers(args) {
-    for (let arg of args) {
-        if (positiveWords.exists(arg)) return arg;
-        if (negativeWords.exists(arg)) return arg;
+    if(messageModifiers.has(word)){
+        return messageModifiers.get(word);
     }
-    return null;
+    return 2
 }
 
 module.exports = {
     parseDiscordMessage,
-    parseDiscordMessageforModifier
+    isModifier
 }
