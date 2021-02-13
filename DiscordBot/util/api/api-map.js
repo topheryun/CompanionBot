@@ -36,6 +36,10 @@ let apiMap = new Map([
     ["cat", ""],
     ["holiday", ""],
     ["number", ""],
+
+    // misc
+    ["pic", ""],
+    ["picture", ""],
 ]);
 
 module.exports = { apiMap }
