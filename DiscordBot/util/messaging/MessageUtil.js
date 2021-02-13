@@ -1,7 +1,7 @@
 const {Queue} = require("../Queue.js");
 
 // How long the bot waits to start typing a reply
-const replyDelay = 1000;
+const replyDelay = 100;
 // The amount of time (ms) it takes to 'write' each character in the response
 const typingDelay = 100;
 
