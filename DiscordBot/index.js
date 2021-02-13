@@ -47,12 +47,7 @@ client.on('message', discordMessage => {
     else {
         for (let word of messageArray) {
             if (getUserFromMention(word) == `807289535184109618`) { //If Scraper bot is mentioned at all
-
-                // if (!botInstance.friend) {
-                //     messaging.reply([`You seem cool ${discordMessage.author.username} let's hang out 😜!`], discordMessage);
-                //     botInstance.friend = discordMessage.author;
-                // }
-                /*else */if (botInstance.friend == discordMessage.author) {
+                if (botInstance.friend == discordMessage.author) {
                     if (String(discordMessage.content).toLowerCase().includes('i hate you')) {
                         messaging.reply(`💔😭😭😭😭 You're the ***WORST*** ${botInstance.friend.username}. I don't want to talk to you anymore!`, discordMessage);
                         botInstance.friend = null;
@@ -65,7 +60,6 @@ client.on('message', discordMessage => {
 
             if (messageTone == 0)
                 messageTone = isModifier(word)
-
         }
 
         console.log("MESSAGE TONE IS " + messageTone)
