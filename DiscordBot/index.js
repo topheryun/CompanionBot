@@ -6,7 +6,8 @@ let { botInstance } = require("./CompanionBot");
 const messaging = require("./util/messaging/MessageUtil");
 
 const { getWordFromKey } = require('./util/get-word-from-key');
-const { parseDiscordMessage } = require("./util/messaging/message-parser");
+const { parseDiscordMessage, isModifier } = require("./util/messaging/message-parser");
+const { parse } = require('path');
 //const introduction = require("./commands/mention");
 
 const client = new Discord.Client();
@@ -47,6 +48,7 @@ client.on('message', discordMessage => {
     } else { // open conversation
         let msg = discordMessage.content.toLowerCase();
         const messageArray = msg.trim().split(/ +/);
+        let messageTone = 2;//-1 is negative, 0 is generic, 1 is positive
 
         botInstance.messageCount++;
         for (let word of messageArray) {
@@ -68,13 +70,24 @@ client.on('message', discordMessage => {
                 }
                 break;
             }
+            if(messageTone == 2){
+                messageTone = isModifier(word)
+                
+            }
         }
+
+        if(messageTone == 2){
+            messageTone = 0; //No modifiers found, so it is a generic message
+        }
+
+        console.log("MESSAGE TONE IS " + messageTone)
 
         keyword = parseDiscordMessage(discordMessage);
         if (keyword == null || keyword.localeCompare("") == 0) 
-            discordMessage.channel.send(`I don't know what you mean by "${discordMessage.content}"`);
+            messaging.reply(`I don't know what you mean by "${discordMessage.content}"`, discordMessage); //fixable if the user is just chatting
         else {
-            getWordFromKey(discordMessage, keyword);
+
+            getWordFromKey(discordMessage, keyword, messageTone);
         }
 
     }
