@@ -4,6 +4,7 @@ const { CHANNEL, TOKEN } = require('./config.json');
 let { botInstance } = require("./CompanionBot");
 const messaging = require("./util/messaging/MessageUtil");
 
+const { configBotGender } = require("./util/bot-config");
 const { getWordFromKey } = require('./util/get-word-from-key');
 const server = require("./util/api/server-requests");
 const pictures = require("./arrays/pic-array")
@@ -29,14 +30,11 @@ client.on('message', discordMessage => {
     const messageArray = msg.trim().split(/ +/);
     let messageTone = 0; //-1 is negative, 0 is generic, 1 is positive
 
-    //who are you
-    //who am i? my name
+    // botInstance.friend = discordMessage.author.id; // for testing
+    // botInstance.gender = "f";
+    // botInstance.imageURL = pictures.femaleImages[2];
 
-    if (!botInstance.friend) { //Config phase
-
-        discordMessage.channel.send("Do you wanna chat? lets do it"); //bypassing
-        botInstance.friend = discordMessage.author.id;
-
+    if (!botInstance.friend) { //Config phase  
         let pingCheck = false;
 
         for (let word of messageArray) {
@@ -44,32 +42,11 @@ client.on('message', discordMessage => {
         }
 
         if (checkConfigPhrase(discordMessage) || pingCheck) {
+            
             let greetingChoice = getRandomInteger(0, greetings.length - 1);
-            messaging.reply(`${greetings[greetingChoice]}`, discordMessage);
-            // set name
-            // what's my gender?
-            // get random image
-
-            // message.channel.awaitMessages(filter, {
-            //     max: 1,
-            //     time: 30000,
-            //     errors: ['time']
-            //   })
-            //   .then(message => {
-            //     message = message.first()
-            //     if (message.content.toUpperCase() == 'YES' || message.content.toUpperCase() == 'Y') {
-            //       message.channel.send(`Deleted`)
-            //     } else if (message.content.toUpperCase() == 'NO' || message.content.toUpperCase() == 'N') {
-            //       message.channel.send(`Terminated`)
-            //     } else {
-            //       message.channel.send(`Terminated: Invalid Response`)
-            //     }
-            //   })
-            //   .catch(collected => {
-            //       message.channel.send('Timeout');
-            //   });
+            discordMessage.channel.send(`${greetings[greetingChoice]} who am I?`);
+            setBotName(discordMessage);
         }
-
     }
     else {
         botInstance.messageCount++;
@@ -127,6 +104,26 @@ client.on('message', discordMessage => {
     }
 });
 
+async function setBotName(discordMessage) {
+    const filter = m => m.content && m.author.id === discordMessage.author.id;
+    const nameCollector = discordMessage.channel.createMessageCollector(filter, { max: 1, time: 20000 });
+    await nameCollector.on('collect', message => {
+        console.log(`Collected ${message.content}`);
+        // set bot's name with message.content
+        discordMessage.channel.send("What is my gender?");
+        setBotGender(discordMessage);
+    });
+}
+
+async function setBotGender(discordMessage) {
+    const filter = m => m.content && m.author.id === discordMessage.author.id;
+    const genderCollector = discordMessage.channel.createMessageCollector(filter, { max: 1, time: 20000 });
+    await genderCollector.on('collect', message => {
+        console.log(`Collected ${message.content}`);
+        configBotGender(message.content);
+    });
+}
+
 function getUserFromMention(mention) {
     if (!mention) return;
 
@@ -159,11 +156,11 @@ function getEmbed(botName) {
         const embed = new Discord.MessageEmbed()
             .setColor('#FFC0CB')
             .addField(`${botName} likes ${botInstance.friend.username}`)
+             //  helper function to convert affection number to a string description
             .addField('Affection', botInstance.affection, true) //affection -- data.affection
             .setImage(image) //IMAGE URL
 
         return embed
-
 }
 
 client.login(TOKEN);
