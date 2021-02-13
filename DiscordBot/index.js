@@ -37,6 +37,13 @@ client.on('message', discordMessage => {
         if (checkConfigPhrase(discordMessage) || pingCheck) {
             let greetingChoice = getRandomInteger(0,greetings.length - 1);
             messaging.reply(`${greetings[greetingChoice]}`, discordMessage);
+            
+            const filter = response => {
+                return response.content;
+            };
+
+            messaging.reply(`${greetings[greetingChoice]}`, discordMessage);
+            
             // set name
             // what's my gender?
             // get random image
