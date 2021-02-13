@@ -22,6 +22,7 @@ public class CompanionBotController {
 	@PostMapping() 
 	public void saveConfiguration(@RequestBody CompanionBot companionBot) {
 		companionBotService.saveConfiguration(companionBot);
+		System.out.println("Configuration Updated");
 	}
 	
 	@GetMapping("/{userId}")
