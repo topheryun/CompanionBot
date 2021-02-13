@@ -21,6 +21,8 @@ let apiMap = new Map([
     ["game", ""], // needs to search for full phrase
     ["got", ""], // needs to search for full phrase
     ["got character", { URL: "https://anapioficeandfire.com/api/characters/", APPEND: "", MAX_RANGE: 2138 }],
+    ["super", ""],
+    ["superhero", { URL: "https://www.superheroapi.com/api.php/10158222866787284/", APPEND: "", MAX_RANGE: 732 }],
 
     
     // single json return

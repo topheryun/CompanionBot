@@ -49,6 +49,9 @@ function checkNextKeyword(args, i) {
         case "got":
             if (args[i].localeCompare("character") == 0)
                 return "got character";
+        case "super":
+            if (args[i].localeCompare("hero") == 0)
+                return "superhero";
         default: return arg;
     }
 }
