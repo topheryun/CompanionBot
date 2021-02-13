@@ -27,14 +27,11 @@ client.on('message', discordMessage => {
     const messageArray = msg.trim().split(/ +/);
     let messageTone = 0; //-1 is negative, 0 is generic, 1 is positive
 
-    //who are you
-    //who am i? my name
+    // botInstance.friend = discordMessage.author.id; // for testing
+    // botInstance.gender = "f";
+    // botInstance.imageURL = pictures.femaleImages[2];
 
-    if (!botInstance.friend) { //Config phase
-
-        // discordMessage.channel.send("Do you wanna chat? lets do it"); //bypassing
-        // botInstance.friend = discordMessage.author.id;
-
+    if (!botInstance.friend) { //Config phase  
         let pingCheck = false;
 
         for (let word of messageArray) {
@@ -42,11 +39,11 @@ client.on('message', discordMessage => {
         }
 
         if (checkConfigPhrase(discordMessage) || pingCheck) {
+            
             let greetingChoice = getRandomInteger(0, greetings.length - 1);
             discordMessage.channel.send(`${greetings[greetingChoice]} who am I?`);
             setBotName(discordMessage);
         }
-
     }
     else {
         botInstance.messageCount++;
