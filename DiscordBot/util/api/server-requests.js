@@ -1,4 +1,4 @@
-const { URL } = require('../config.json');
+const { URL } = require("../../config.json");
 const fetch = require("node-fetch");
 
 // setters
