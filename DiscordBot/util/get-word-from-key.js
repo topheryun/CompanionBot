@@ -3,10 +3,6 @@ const { getApiWordAppend, getTaco, quoteSwanson } = require("./api/get-api-word"
 const { getRandomInteger } = require("./MathUtil")
 const { genericResponses, positiveResponses, negativeResponses } = require("./messaging/generic-responses")
 
-
-const name = "default";
-const description = "Gets a random API word";
-
 async function getWordFromKey(discordMessage, args, modifier) {
     let key = args;
     let data;
@@ -16,7 +12,7 @@ async function getWordFromKey(discordMessage, args, modifier) {
     if (key.localeCompare("cat") == 0) {
         choice = getRandomInteger(0, catArray.length);
         data = catArray[choice];
-        sendMessage(discordMessage, data);
+        sendMessage(discordMessage, data, modifier);
     }
     // taco
     else if (key.localeCompare("taco") == 0) {
@@ -73,10 +69,6 @@ function sendMessage(discordMessage, data, modifier) {
     }
 }
 
-// idea for not just appending data, but having the key word in the middle
-
 module.exports = {
-    name,
-    description,
     getWordFromKey
 };
