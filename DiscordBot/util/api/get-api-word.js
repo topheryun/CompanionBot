@@ -1,6 +1,7 @@
 const fetch = require("node-fetch");
 const { getRandomInteger } = require("../MathUtil");
 const { apiMap } = require("./api-map");
+const messaging = require("../messaging/MessageUtil");
 
 async function getApiWordAppend(key) {
     value = apiMap.get(key);
@@ -13,19 +14,19 @@ async function getApiWordAppend(key) {
             response = await fetch(value.URL + randomNumber + "/");
         }
         else {
-            response = await fetch(value.URL + randomNumber + "/" + value.APPEND + "/"); 
+            response = await fetch(value.URL + randomNumber + "/" + value.APPEND + "/");
         }
         timeOut++;
     } while (response.status != 200 || timeOut >= 25)
-    
+
     let data = await response.json();
-    
+
     return returnType(key, data);
 }
 
 function returnType(key, data) {
     let choice;
-    switch(key) {
+    switch (key) {
         case "pokemon": return data.name;
         case "dog": return data.name;
         case "anime": return data.title;
@@ -33,11 +34,11 @@ function returnType(key, data) {
         case "brewery": return data.name;
         case "programming joke": return data.joke;
         case "superhero": return data.name;
-        case "anime character": 
+        case "anime character":
             if (data.characters.length == 0) return "";
             choice = getRandomInteger(0, data.characters.length - 1);
             return data.characters[choice].name;
-        case "anime director": 
+        case "anime director":
             if (data.staff.length == 0) return "";
             for (let i = 0; i < data.staff.length; i++) {
                 for (let j = 0; j < data.staff[i].positions.length; j++) {
@@ -46,7 +47,7 @@ function returnType(key, data) {
                 }
             }
             return "";
-        case "anime va": 
+        case "anime va":
             if (data.characters.length == 0) return "";
             choice = getRandomInteger(0, data.characters.length - 1);
             return data.characters[choice].voice_actors[0].name;
@@ -62,7 +63,7 @@ function returnType(key, data) {
         case "sport":
             choice = getRandomInteger(0, data.sports.length - 1);
             return data.sports[choice].strSport;
-        
+
 
     }
 }
@@ -84,7 +85,7 @@ async function getTaco(discordMessage, key) {
     if (response.status === 200) {
         let data = await response.json();
         let message = `My favorite combo would be ${data.shell.name} with ${data.base_layer.name} seasoned with ${data.seasoning.name}. Some ${data.mixin.name} and ${data.condiment.name} on top!`;
-        discordMessage.channel.send(message);
+        messaging.reply(message, discordMessage)
     }
 }
 
@@ -93,7 +94,7 @@ async function quoteSwanson(discordMessage, key) {
     let response = await fetch(value.URL);
     if (response.status === 200) {
         let data = await response.json();
-        discordMessage.channel.send(data);
+        messaging.reply(data, discordMessage)
     }
 }
 
@@ -103,7 +104,7 @@ async function getQuote(discordMessage, key) {
     if (response.status === 200) {
         let data = await response.json();
         let message = `${data.content} -${data.author}`;
-        discordMessage.channel.send(message);
+        messaging.reply(message, discordMessage)
     }
 }
 
@@ -113,10 +114,25 @@ async function getCocktail(discordMessage, key) {
     if (response.status === 200) {
         let data = await response.json();
         let message = `${data.drinks[0].strDrink} with extra ${data.drinks[0].strIngredient1}`;
-        discordMessage.channel.send(message);
+        messaging.reply(message, discordMessage)
+        let number = getRandomInteger(0, 3)
+        switch (number) {
+            case 0:
+                discordMessage.channel.send("It has to be")
+                break;
+            case 1:
+                discordMessage.channel.send("oooh okok its the")
+                break;
+            case 2:
+                discordMessage.channel.send("hehe id have to say")
+                break;
+            case 2:
+                discordMessage.channel.send(":) mine is")
+                break;
+        }
     }
 }
-        
+
 async function chuckNorris(discordMessage, key) {
     value = apiMap.get(key);
     let randomNumber = getRandomInteger(1, value.MAX_RANGE);
@@ -133,7 +149,10 @@ async function programmingJoke(discordMessage, key) {
     let response = await fetch(value.URL + randomNumber);
     if (response.status === 200) {
         let data = await response.json();
-        discordMessage.channel.send(data.joke);
+        if (data == "")
+            messaging.reply("you cant put me on the spot like that 😂", discordMessage)
+        else
+            messaging.reply(data.joke, discordMessage)
     }
 }
 
