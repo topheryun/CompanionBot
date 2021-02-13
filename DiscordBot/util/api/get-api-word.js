@@ -42,6 +42,18 @@ function returnType(key, data) {
     }
 }
 
+async function getApiWord(key) {
+    value = apiMap.get(key);
+    let response = await fetch(value.URL);
+
+    if (response.status === 200) {
+        let data = await response.json();
+        let choice  = getRandomInteger(0, data.countries.length - 1);
+        return data.countries[choice].name_en;
+    }
+    return null;
+}
+
 async function getTaco(discordMessage, key) {
     value = apiMap.get(key);
     let response = await fetch(value.URL);
@@ -63,6 +75,7 @@ async function quoteSwanson(discordMessage, key) {
 
 module.exports = {
     getApiWordAppend,
+    getApiWord,
     getTaco,
     quoteSwanson
 }

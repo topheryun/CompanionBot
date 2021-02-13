@@ -6,8 +6,6 @@ function parseDiscordMessage(discordMessage) {
     userMessage = userMessage.replace(/\?|!/g,'');
     const args = userMessage.trim().split(/ +/);
 
-    console.log(args);
-
     return properKeywords(args);
 }
 
