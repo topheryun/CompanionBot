@@ -1,4 +1,5 @@
-const { getApiWordPostAppend } = require("./api/get-api-word");
+const { catArray } = require("../arrays/cat-array");
+const { getApiWordAppend, getTaco } = require("./api/get-api-word");
 const { getRandomInteger } = require("./MathUtil")
 const { genericResponses, positiveResponses, negativeResponses } = require("./messaging/generic-responses")
 
@@ -8,18 +9,41 @@ const description = "Gets a random API word";
 
 async function getWordFromKey(discordMessage, args) {
     let key = args;
-    let data = await getApiWordPostAppend(key);
+    let data;
+    let choice;
 
-    let randomInt = getRandomInteger(0, genericResponses.length);
-    let message = `${genericResponses[randomInt]} ${data}`
+    // physical database
+    if (key.localeCompare("cat") == 0) {
+        choice = getRandomInteger(0, catArray.length);
+        data = catArray[choice];
+        sendMessage(discordMessage, data);
+    }
+    // taco
+    else if (key.localeCompare("taco") == 0) {
+        getTaco(discordMessage, key);
+    }
+    // normal requests with words appended at the end
+    else {
+        data = await getApiWordAppend(key);
+        sendMessage(discordMessage, data);
+    } 
+}
 
-    discordMessage.channel.send(message);
+function sendMessage(discordMessage, data) {
+    if (data.localeCompare("") == 0)
+        discordMessage.channel.send("No opinion."); // vary responses
+    else {
+        let randomInt = getRandomInteger(0, genericResponses.length);
+        let message = `${genericResponses[randomInt]} ${data}`
+
+        discordMessage.channel.send(message);
+    }
 }
 
 // idea for not just appending data, but having the key word in the middle
 
 module.exports = {
     name,
-    description, 
+    description,
     getWordFromKey
 };

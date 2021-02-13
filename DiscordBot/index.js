@@ -70,7 +70,12 @@ client.on('message', discordMessage => {
             }
         }
 
-
+        keyword = parseDiscordMessage(discordMessage);
+        if (keyword == null || keyword.localeCompare("") == 0) discordMessage.channel.send(`I don't know what you mean by "${discordMessage.content}"`);
+        else {
+            //if(positive =)
+            getWordFromKey(discordMessage, keyword);
+        }
 
     }
 });
