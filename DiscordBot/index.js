@@ -19,10 +19,10 @@ client.once('ready', () => {
 });
 
 client.on('message', discordMessage => {
-
     if (discordMessage.channel.id != CHANNEL) return; //returns if the message is not in the designated channel
     if (discordMessage.author.bot) return; // returns if the msg is by the bot
 
+    botInstance.messageCount++;
     let msg = discordMessage.content.toLowerCase();
     const messageArray = msg.trim().split(/ +/);
     let messageTone = 0; //-1 is negative, 0 is generic, 1 is positive
@@ -39,14 +39,12 @@ client.on('message', discordMessage => {
         }
 
         if (checkConfigPhrase(discordMessage) || pingCheck) {
-            
             let greetingChoice = getRandomInteger(0, greetings.length - 1);
             discordMessage.channel.send(`${greetings[greetingChoice]} who am I?`);
             setBotName(discordMessage);
         }
     }
     else {
-        botInstance.messageCount++;
         for (let word of messageArray) {
             if (getUserFromMention(word) == `807289535184109618`) { //If Scraper bot is mentioned at all
 
@@ -110,6 +108,7 @@ async function setBotGender(discordMessage) {
     await genderCollector.on('collect', message => {
         console.log(`Collected ${message.content}`);
         configBotGender(message.content);
+        botInstance.friend = discordMessage.author.id;
     });
 }
 

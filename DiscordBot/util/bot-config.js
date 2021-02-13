@@ -14,6 +14,7 @@ function configBotGender(message) {
             botInstance.gender = "m";
             choice = getRandomInteger(0, maleImages.length - 1);
             botInstance.imageURL = maleImages[choice];
+            break;
         case "female":
         case "f":
         case "girl":
@@ -24,6 +25,7 @@ function configBotGender(message) {
             botInstance.gender = "f";
             choice = getRandomInteger(0, femaleImages.length - 1);
             botInstance.imageURL = femaleImages[choice];
+            break;
         default:
             botInstance.gender = "x";
             choice = getRandomInteger(0, nonBinaryImages.length - 1);
