@@ -74,6 +74,8 @@ function checkConfigPhrase(discordMessage) {
         case "who are you?":
         case "hello":
         case "hello?":
+        case "hello,":
+        case "hello!":
 
             return true;
         default: return false;
