@@ -28,9 +28,12 @@ function checkNextKeyword(args, i) {
         case "anime": 
             if (args[i].localeCompare("character") == 0 || args[i].localeCompare("director") == 0 ||
             args[i].localeCompare("genre") == 0) 
-                return arg + " " + args[i];
+                return "anime " + args[i];
             else if (args[i].localeCompare("voice") == 0 || args[i].localeCompare("va") == 0)
-                return arg + " va";
+                return "anime va";
+        case "manga":
+            if (args[i].localeCompare("author") == 0)
+                return "mangaka";
         default: return arg;
     }
 }

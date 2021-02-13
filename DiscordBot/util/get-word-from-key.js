@@ -27,11 +27,11 @@ async function getWordFromKey(discordMessage, args) {
         quoteSwanson(discordMessage, key);
     }
     // returns a list
-    else if (key.localeCompare("country") == 0) {
+    else if (key.localeCompare("country") == 0 || key.localeCompare("sport") == 0) {
         data = await getApiWord(key);
         sendMessage(discordMessage, data);
     }
-    // normal requests with words appended at the end
+    // normal requests and ones with words appended at the end
     else {
         data = await getApiWordAppend(key);
         sendMessage(discordMessage, data);
