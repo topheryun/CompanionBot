@@ -19,6 +19,7 @@ async function getApiWordAppend(key) {
     } while (response.status != 200 || timeOut >= 25)
     
     let data = await response.json();
+    
     return returnType(key, data);
 }
 
@@ -29,6 +30,7 @@ function returnType(key, data) {
         case "dog": return data.name;
         case "anime": return data.title;
         case "anime genre": return data.genres[0].name; // data["genres"][0]["name"]
+        case "brewery": return data.name;
         case "anime character": 
             if (data.characters.length == 0) return "";
             choice = getRandomInteger(0, data.characters.length - 1);
@@ -58,6 +60,8 @@ function returnType(key, data) {
         case "sport":
             choice = getRandomInteger(0, data.sports.length - 1);
             return data.sports[choice].strSport;
+        
+
     }
 }
 
@@ -91,6 +95,26 @@ async function quoteSwanson(discordMessage, key) {
     }
 }
 
+async function getQuote(discordMessage, key) {
+    value = apiMap.get(key);
+    let response = await fetch(value.URL);
+    if (response.status === 200) {
+        let data = await response.json();
+        let message = `${data.content} -${data.author}`;
+        discordMessage.channel.send(message);
+    }
+}
+
+async function getCocktail(discordMessage, key) {
+    value = apiMap.get(key);
+    let response = await fetch(value.URL);
+    if (response.status === 200) {
+        let data = await response.json();
+        let message = `${data.drinks[0].strDrink} with extra ${data.drinks[0].strIngredient1}`;
+        discordMessage.channel.send(message);
+    }
+}
+        
 async function chuckNorris(discordMessage, key) {
     value = apiMap.get(key);
     let randomNumber = getRandomInteger(1, value.MAX_RANGE);
@@ -106,5 +130,7 @@ module.exports = {
     getApiWord,
     getTaco,
     quoteSwanson,
+    getQuote,
+    getCocktail,
     chuckNorris
 }
