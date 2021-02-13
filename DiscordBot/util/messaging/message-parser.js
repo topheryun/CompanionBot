@@ -3,7 +3,7 @@ const { messageModifiers } = require("./generic-responses")
 
 function parseDiscordMessage(discordMessage) {
     let userMessage = discordMessage.content.toLowerCase();
-    userMessage = userMessage.replace(/\?/g,'');
+    userMessage = userMessage.replace(/\?|!/g,'');
     const args = userMessage.trim().split(/ +/);
 
     console.log(args);

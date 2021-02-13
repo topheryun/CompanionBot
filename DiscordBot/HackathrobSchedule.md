@@ -42,7 +42,7 @@
 - > Quotes https://api.quotable.io/random [gets random quote]
 - > Game of Thrones characters https://anapioficeandfire.com/api/characters/${number} [1-2138]
 - > Breaking Bad Characters https://www.breakingbadapi.com/api/characters/${number} [1-116]
-- > Ron Swanson Quotes http://ron-swanson-quotes.herokuapp.com/v2/quotes [returns random quote]
+- Ron Swanson Quotes http://ron-swanson-quotes.herokuapp.com/v2/quotes [returns random quote]
 - > Star Wars Character https://www.swapi.tech/api/people/${number}  [1-83]
 - > Superhero (marvel/dc) https://www.superheroapi.com/api.php/10158222866787284/${number} [1-732]
 - > Cocktail https://www.thecocktaildb.com/api/json/v1/1/random.php [returns random cocktail]

@@ -10,6 +10,8 @@ let apiMap = new Map([
 
     // single json return
     ["taco", { URL: "http://taco-randomizer.herokuapp.com/random/" }],
+    ["ron", { URL: "http://ron-swanson-quotes.herokuapp.com/v2/quotes/"}],
+    ["swanson", { URL: "http://ron-swanson-quotes.herokuapp.com/v2/quotes/"}],
 
     // physical database
     ["cat", ""],
