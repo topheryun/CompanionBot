@@ -49,6 +49,7 @@ function returnType(key, data) {
         case "manga": return data.title;
         case "mangaka": return data.authors[0].name;
         case "star wars character": return data.result.properties.name;
+        case "got character": return data.titles[0].localeCompare("") != 0 ? data.name + ", \"" + data.titles[0] + "\"" : data.name;
 
         // returns a list
         case "country":

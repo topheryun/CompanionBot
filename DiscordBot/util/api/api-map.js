@@ -9,12 +9,15 @@ let apiMap = new Map([
     ["anime va", { URL: "https://api.jikan.moe/v3/anime/", APPEND: "characters_staff", MAX_RANGE: 4260 }],
     ["manga", { URL: "https://api.jikan.moe/v3/manga/", APPEND: "", MAX_RANGE: 797 }],
     ["mangaka", { URL: "https://api.jikan.moe/v3/manga/", APPEND: "", MAX_RANGE: 797 }],
-    ["chuck", ""], // needs to search for full word
+    ["chuck", ""], // needs to search for full phrase
     ["chuck norris", { URL: "https://api.icndb.com/jokes/", APPEND: "", MAX_RANGE: 619 }],
-    ["star", ""], // needs to search for full word
+    ["star", ""], // needs to search for full phrase
     ["star wars character", { URL: "https://www.swapi.tech/api/people/", APPEND: "", MAX_RANGE: 83 }],
-    
+    ["game", ""], // needs to search for full phrase
+    ["got", ""], // needs to search for full phrase
+    ["got character", { URL: "https://anapioficeandfire.com/api/characters/", APPEND: "", MAX_RANGE: 2138 }],
 
+    
 
     // single json return
     ["taco", { URL: "http://taco-randomizer.herokuapp.com/random/" }],
