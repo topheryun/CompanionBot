@@ -36,6 +36,7 @@ async function getConfigurationFromServer(userId) {
 
 module.exports = {
     saveConfigurationToServer,
+    setAffection,
 
     getConfigurationFromServer
 }
