@@ -19,6 +19,9 @@ client.once('ready', () => {
 
 client.on('message', discordMessage => {
 
+
+    
+
     if (discordMessage.channel.id != CHANNEL) return; //returns if the message is not in the designated channel
     if (discordMessage.author.bot) return; // returns if the msg is by the bot
 
@@ -97,15 +100,23 @@ client.on('message', discordMessage => {
 
 
         if (botInstance.friend == discordMessage.author.id) {
-            //affection++ for each message sent by user
+
+            botInstance.affection++;
+
             let keyword = parseDiscordMessage(discordMessage);
             console.log(`keyword: ${keyword}`)
             if (keyword == null || keyword.localeCompare("") == 0)
                 messaging.reply(`I don't know what you mean by "${discordMessage.content}"`, discordMessage); //fixable if the user is just chatting
             else {
                 if (keyword.localeCompare("picture") == 0) {
-                    let embed = sendEmbed(discordMessage.author.id)
+                    console.log("id:" + discordMessage.author.id);
+
+                    console.log(discordMessage.guild.members.get(807289535184109618))
+                    console.log(discordMessage.guild.members.get(807289535184109618).username)
+
+                    let embed = getEmbed();
                     discordMessage.channel.send(embed);
+
                 } else {
                     getWordFromKey(discordMessage, keyword, messageTone);
                 }
@@ -131,30 +142,28 @@ function getUserFromMention(mention) {
     }
 }
 
-function sendEmbed(userId) {
+function getEmbed(botName) {
 
-    //getConfigurationFromServer(userId).then(data => {
-    let datagender = "f";
+        let image = "";
+        if (botInstance.gender == "m") {
+            let rng = getRandomInteger(0, pictures.maleImages.length - 1);
+            image = pictures.maleImages[rng];
+        } else if (botInstance.gender == "f") {
+            let rng = getRandomInteger(0, pictures.femaleImages.length - 1);
+            image = pictures.femaleImages[rng];
+        } else {
+            let rng = getRandomInteger(0, pictures.nonBinaryImages.length - 1);
+            image = pictures.nonBinaryImagesImages[rng];
+        }
 
-    let image = "";
-    if (datagender == "m") {
-        let rng = getRandomInteger(0, pictures.maleImages.length - 1);
-        image = pictures.maleImages[rng];
-    } else if (datagender == "f") {
-        let rng = getRandomInteger(0, pictures.femaleImages.length - 1);
-        image = pictures.femaleImages[rng];
-    } else {
-        let rng = getRandomInteger(0, pictures.nonBinaryImages.length - 1);
-        image = pictures.nonBinaryImagesImages[rng];
-    }
+        const embed = new Discord.MessageEmbed()
+            .setColor('#FFC0CB')
+            .addField(`${botName} likes ${botInstance.friend.username}`)
+            .addField('Affection', botInstance.affection, true) //affection -- data.affection
+            .setImage(image) //IMAGE URL
 
-    const embed = new Discord.MessageEmbed()
-        .setColor('#FFC0CB')
-        .addField('Affection', 32, true) //affection -- data.affection
-        .setImage(image) //IMAGE URL
+        return embed
 
-    return embed
-    //});
 }
 
 client.login(TOKEN);
