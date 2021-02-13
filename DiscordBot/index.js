@@ -5,6 +5,8 @@ let { botInstance } = require("./CompanionBot");
 const messaging = require("./util/messaging/MessageUtil");
 
 const { getWordFromKey } = require('./util/get-word-from-key');
+const server = require("./util/api/server-requests");
+const pictures = require("./arrays/pic-array")
 const { parseDiscordMessage, isModifier, checkConfigPhrase } = require("./util/messaging/message-parser");
 const { greetings } = require('./util/messaging/generic-responses');
 const { getRandomInteger } = require('./util/MathUtil');
@@ -22,12 +24,16 @@ client.on('message', discordMessage => {
 
     let msg = discordMessage.content.toLowerCase();
     const messageArray = msg.trim().split(/ +/);
-    let messageTone = 0;//-1 is negative, 0 is generic, 1 is positive
+    let messageTone = 0; //-1 is negative, 0 is generic, 1 is positive
 
     //who are you
     //who am i? my name
 
     if (!botInstance.friend) { //Config phase
+
+        discordMessage.channel.send("Do you wanna chat? lets do it"); //bypassing
+        botInstance.friend = discordMessage.author.id;
+
         let pingCheck = false;
 
         for (let word of messageArray) {
@@ -35,7 +41,7 @@ client.on('message', discordMessage => {
         }
 
         if (checkConfigPhrase(discordMessage) || pingCheck) {
-            let greetingChoice = getRandomInteger(0,greetings.length - 1);
+            let greetingChoice = getRandomInteger(0, greetings.length - 1);
             messaging.reply(`${greetings[greetingChoice]}`, discordMessage);
             
             const filter = response => {
@@ -96,17 +102,20 @@ client.on('message', discordMessage => {
 
         console.log("MESSAGE TONE IS " + messageTone)
 
-        if (botInstance.friend == discordMessage.author) {
+
+        if (botInstance.friend == discordMessage.author.id) {
             //affection++ for each message sent by user
             let keyword = parseDiscordMessage(discordMessage);
+            console.log(`keyword: ${keyword}`)
             if (keyword == null || keyword.localeCompare("") == 0)
                 messaging.reply(`I don't know what you mean by "${discordMessage.content}"`, discordMessage); //fixable if the user is just chatting
             else {
                 if (keyword.localeCompare("picture") == 0) {
-                    sendEmbed(discordMessage,)//gender, get picture, title, affection
-                }
-                else
+                    let embed = sendEmbed(discordMessage.author.id)
+                    discordMessage.channel.send(embed);
+                } else {
                     getWordFromKey(discordMessage, keyword, messageTone);
+                }
             }
         } else {
             messaging.reply(`Eww stay away from me ${discordMessage.author.username}, I'm talking to ${botInstance.friend.username} right now.`, discordMessage);
@@ -127,6 +136,32 @@ function getUserFromMention(mention) {
         console.log(mention)
         return client.users.cache.get(mention);
     }
+}
+
+function sendEmbed(userId) {
+
+    //getConfigurationFromServer(userId).then(data => {
+    let datagender = "f";
+
+    let image = "";
+    if (datagender == "m") {
+        let rng = getRandomInteger(0, pictures.maleImages.length - 1);
+        image = pictures.maleImages[rng];
+    } else if (datagender == "f") {
+        let rng = getRandomInteger(0, pictures.femaleImages.length - 1);
+        image = pictures.femaleImages[rng];
+    } else {
+        let rng = getRandomInteger(0, pictures.nonBinaryImages.length - 1);
+        image = pictures.nonBinaryImagesImages[rng];
+    }
+
+    const embed = new Discord.MessageEmbed()
+        .setColor('#FFC0CB')
+        .addField('Affection', 32, true) //affection -- data.affection
+        .setImage(image) //IMAGE URL
+
+    return embed
+    //});
 }
 
 client.login(TOKEN);

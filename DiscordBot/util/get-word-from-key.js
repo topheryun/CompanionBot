@@ -1,9 +1,10 @@
 const { catArray } = require("../arrays/cat-array");
-const { getApiWordAppend, getTaco, getQuote, getCocktail, programmingJoke, 
+const { getApiWordAppend, getTaco, getQuote, getCocktail, programmingJoke,
     quoteSwanson, getApiWord, chuckNorris, getTrivia } = require("./api/get-api-word");
 const { holidayArray } = require("../arrays/holiday-array");
-const { getRandomInteger, getRandomDouble } = require("./MathUtil")
-const { genericResponses, positiveResponses, negativeResponses } = require("./messaging/generic-responses")
+const { getRandomInteger, getRandomDouble } = require("./MathUtil");
+const { genericResponses, positiveResponses, negativeResponses } = require("./messaging/generic-responses");
+
 
 async function getWordFromKey(discordMessage, args, modifier) {
     let key = args;
@@ -22,7 +23,7 @@ async function getWordFromKey(discordMessage, args, modifier) {
             sendMessage(discordMessage, data, modifier);
             break;
         case "number":
-            choice = getRandomDouble(-10000,10000);
+            choice = getRandomDouble(-10000, 10000);
             sendMessage(discordMessage, choice, modifier);
             break;
         case "taco": getTaco(discordMessage, key);
@@ -33,7 +34,7 @@ async function getWordFromKey(discordMessage, args, modifier) {
             break;
         case "trivia": getTrivia(discordMessage, key);
             break;
-        case "ron": 
+        case "ron":
         case "swanson": quoteSwanson(discordMessage, key);
             break;
         case "chuck norris": chuckNorris(discordMessage, key);
@@ -41,7 +42,7 @@ async function getWordFromKey(discordMessage, args, modifier) {
         case "programming joke": programmingJoke(discordMessage, key);
             break;
         case "country":
-        case "sport": 
+        case "sport":
             data = await getApiWord(key);
             sendMessage(discordMessage, data);
             break;
