@@ -1,5 +1,6 @@
 const { catArray } = require("../arrays/cat-array");
-const { getApiWordAppend, getTaco, getQuote, getCocktail, quoteSwanson, getApiWord, chuckNorris, programmingJoke } = require("./api/get-api-word");
+const { getApiWordAppend, getTaco, getQuote, getCocktail, programmingJoke, 
+    quoteSwanson, getApiWord, chuckNorris, getTrivia } = require("./api/get-api-word");
 const { holidayArray } = require("../arrays/holiday-array");
 const { getRandomInteger } = require("./MathUtil")
 const { genericResponses, positiveResponses, negativeResponses } = require("./messaging/generic-responses")
@@ -33,6 +34,10 @@ async function getWordFromKey(discordMessage, args, modifier) {
     // cocktail
     else if (key.localeCompare("cocktail") == 0) {
         getCocktail(discordMessage, key);
+    }
+    // trivia
+    else if (key.localeCompare("trivia") == 0) {
+        getTrivia(discordMessage, key);
     }
     // ron swanson quote
     else if (key.localeCompare("ron") == 0 || key.localeCompare("swanson") == 0) {

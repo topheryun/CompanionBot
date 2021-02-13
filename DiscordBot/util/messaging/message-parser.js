@@ -43,6 +43,12 @@ function checkNextKeyword(args, i) {
         case "programming":
             if (args[i].localeCompare("joke") == 0)
             return "programming joke";
+        case "game":
+            if (args[i++].localeCompare("of") == 0 && args[i++].localeCompare("thrones") == 0 && args[i].localeCompare("character") == 0)
+                return "got character";
+        case "got":
+            if (args[i].localeCompare("character") == 0)
+                return "got character";
         default: return arg;
     }
 }

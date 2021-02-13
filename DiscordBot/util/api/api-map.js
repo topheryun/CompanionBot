@@ -14,19 +14,22 @@ let apiMap = new Map([
     ["cocktail", { URL: "https://www.thecocktaildb.com/api/json/v1/1/random.php", APPEND: "", MAX_RANGE: 0}],
     ["chuck", ""], // needs to search for full word
     ["chuck norris", { URL: "https://api.icndb.com/jokes/", APPEND: "", MAX_RANGE: 619 }],
-    ["star", ""], // needs to search for full word
+    ["star", ""], // needs to search for full phrase
     ["star wars character", { URL: "https://www.swapi.tech/api/people/", APPEND: "", MAX_RANGE: 83 }],
     ["programming", ""], // needs to search for full word
     ["programming joke", { URL: "https://v2.jokeapi.dev/joke/programming/", APPEND: "", MAX_RANGE: 100000}],
+    ["game", ""], // needs to search for full phrase
+    ["got", ""], // needs to search for full phrase
+    ["got character", { URL: "https://anapioficeandfire.com/api/characters/", APPEND: "", MAX_RANGE: 2138 }],
+
     
-
-
     // single json return
     ["taco", { URL: "http://taco-randomizer.herokuapp.com/random/" }],
     ["ron", { URL: "http://ron-swanson-quotes.herokuapp.com/v2/quotes/" }],
     ["swanson", { URL: "http://ron-swanson-quotes.herokuapp.com/v2/quotes/" }],
     ["country", { URL: "https://www.thesportsdb.com/api/v1/json/1/all_countries.php" }],
     ["sport", { URL: "https://www.thesportsdb.com/api/v1/json/1/all_sports.php" }],
+    ["trivia", { URL: "https://opentdb.com/api.php?amount=1" }],
     
     // physical database
     ["cat", ""],

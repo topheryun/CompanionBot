@@ -36,11 +36,11 @@
 - Taco http://taco-randomizer.herokuapp.com/random/ [generates random taco]
 - Chuck Norris Jokes https://api.icndb.com/jokes/${number} [1-619]
 - Programming Jokes https://v2.jokeapi.dev/joke/programming/${number} [1-100000] [has two different types]
-- > Trivia https://opentdb.com/api.php?amount=1 [gives one random trivia]
+- Trivia https://opentdb.com/api.php?amount=1 [gives one random trivia]
 - > Music Genre https://binaryjazz.us/wp-json/genrenator/v1/genre/ [generates a made up genre]
 - > Music Genre http://developers.music-story.com/developers/genre [response is xml (real genres)]
 - Quotes https://api.quotable.io/random [gets random quote]
-- > Game of Thrones characters https://anapioficeandfire.com/api/characters/${number} [1-2138]
+- Game of Thrones characters https://anapioficeandfire.com/api/characters/${number} [1-2138]
 - > Breaking Bad Characters https://www.breakingbadapi.com/api/characters/${number} [1-116]
 - Ron Swanson Quotes http://ron-swanson-quotes.herokuapp.com/v2/quotes [returns random quote]
 - Star Wars Character https://www.swapi.tech/api/people/${number}  [1-83]
@@ -48,5 +48,4 @@
 - Cocktail https://www.thecocktaildb.com/api/json/v1/1/random.php [returns random cocktail]
 - > Favorite number [number generator]
 
-- > food, technologies, 
-- > Chris will have a folder of bookmarked APIs that require authorization
+- > food, technologies, etc

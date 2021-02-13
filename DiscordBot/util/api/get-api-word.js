@@ -52,6 +52,7 @@ function returnType(key, data) {
         case "manga": return data.title;
         case "mangaka": return data.authors[0].name;
         case "star wars character": return data.result.properties.name;
+        case "got character": return data.titles[0].localeCompare("") != 0 ? data.name + ", \"" + data.titles[0] + "\"" : data.name;
 
         // returns a list
         case "country":
@@ -135,6 +136,18 @@ async function programmingJoke(discordMessage, key) {
     }
 }
 
+async function getTrivia(discordMessage, key) {
+    value = apiMap.get(key);
+    let response = await fetch(value.URL);
+    if (response.status === 200) {
+        let data = await response.json();
+        discordMessage.channel.send(`Question: ${data.results[0].question}`);
+        setTimeout(() => {
+            discordMessage.channel.send(`Answer: ${data.results[0].correct_answer}`);
+        }, 5000);
+    }
+}
+
 module.exports = {
     getApiWordAppend,
     getApiWord,
@@ -143,5 +156,6 @@ module.exports = {
     getQuote,
     getCocktail,
     chuckNorris,
-    programmingJoke
+    programmingJoke,
+    getTrivia
 }
