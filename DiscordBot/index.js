@@ -5,11 +5,11 @@ let { botInstance } = require("./CompanionBot");
 const messaging = require("./util/messaging/MessageUtil");
 
 const { getWordFromKey } = require('./util/get-word-from-key');
-const { parseDiscordMessage, isModifier } = require("./util/messaging/message-parser");
 const server = require("./util/api/server-requests");
-const { getRandomInteger } = require("./util/MathUtil");
-
 const pictures = require("./arrays/pic-array")
+const { parseDiscordMessage, isModifier, checkConfigPhrase } = require("./util/messaging/message-parser");
+const { greetings } = require('./util/messaging/generic-responses');
+const { getRandomInteger } = require('./util/MathUtil');
 
 const client = new Discord.Client();
 
@@ -18,8 +18,6 @@ client.once('ready', () => {
 });
 
 client.on('message', discordMessage => {
-
-    console.log(discordMessage.author.id)
 
     if (discordMessage.channel.id != CHANNEL) return; //returns if the message is not in the designated channel
     if (discordMessage.author.bot) return; // returns if the msg is by the bot
@@ -33,12 +31,22 @@ client.on('message', discordMessage => {
 
     if (!botInstance.friend) { //Config phase
 
-        discordMessage.channel.send("Do you wanna chat? lets do it");
+        discordMessage.channel.send("Do you wanna chat? lets do it"); //bypassing
         botInstance.friend = discordMessage.author.id;
 
-        if (String(discordMessage.content).toLowerCase().includes('who are you') || String(discordMessage.content).toLowerCase().includes('hello')) {
+        let pingCheck = false;
 
-            discordMessage.channel.send("Whats my name");
+        for (let word of messageArray) {
+            if (getUserFromMention(word) == `807289535184109618`) pingCheck = true;
+        }
+
+        if (checkConfigPhrase(discordMessage) || pingCheck) {
+            let greetingChoice = getRandomInteger(0, greetings.length - 1);
+            messaging.reply(`${greetings[greetingChoice]}`, discordMessage);
+            // set name
+            // what's my gender?
+            // get random image
+
             // message.channel.awaitMessages(filter, {
             //     max: 1,
             //     time: 30000,
@@ -57,56 +65,54 @@ client.on('message', discordMessage => {
             //   .catch(collected => {
             //       message.channel.send('Timeout');
             //   });
+        }
 
+    }
+    else {
+        botInstance.messageCount++;
+        for (let word of messageArray) {
+            if (getUserFromMention(word) == `807289535184109618`) { //If Scraper bot is mentioned at all
 
+                // if (!botInstance.friend) {
+                //     messaging.reply([`You seem cool ${discordMessage.author.username} let's hang out 😜!`], discordMessage);
+                //     botInstance.friend = discordMessage.author;
+                // }
+                /*else */if (botInstance.friend == discordMessage.author) {
+                    if (String(discordMessage.content).toLowerCase().includes('i hate you')) {
+                        messaging.reply(`💔😭😭😭😭 You're the ***WORST*** ${botInstance.friend.username}. I don't want to talk to you anymore!`, discordMessage);
+                        botInstance.friend = null;
+                    } else {
+                        messaging.reply([`Why are you mentioning me silly 😜`], discordMessage);
+                    }
+                }
+                break;
+            }
+
+            if (messageTone == 0)
+                messageTone = isModifier(word)
 
         }
-    }
 
-    botInstance.messageCount++;
-    for (let word of messageArray) {
-        if (getUserFromMention(word) == `807289535184109618`) { //If Scraper bot is mentioned at all
+        console.log("MESSAGE TONE IS " + messageTone)
 
-            // if (!botInstance.friend) {
-            //     messaging.reply([`You seem cool ${discordMessage.author.username} let's hang out 😜!`], discordMessage);
-            //     botInstance.friend = discordMessage.author;
-            // }
-            /*else */if (botInstance.friend == discordMessage.author) {
-                if (String(discordMessage.content).toLowerCase().includes('i hate you')) {
-                    messaging.reply(`💔😭😭😭😭 You're the ***WORST*** ${botInstance.friend.username}. I don't want to talk to you anymore!`, discordMessage);
-                    botInstance.friend = null;
+
+        if (botInstance.friend == discordMessage.author.id) {
+            //affection++ for each message sent by user
+            let keyword = parseDiscordMessage(discordMessage);
+            console.log(`keyword: ${keyword}`)
+            if (keyword == null || keyword.localeCompare("") == 0)
+                messaging.reply(`I don't know what you mean by "${discordMessage.content}"`, discordMessage); //fixable if the user is just chatting
+            else {
+                if (keyword.localeCompare("picture") == 0) {
+                    let embed = sendEmbed(discordMessage.author.id)
+                    discordMessage.channel.send(embed);
                 } else {
-                    messaging.reply([`Why are you mentioning me silly 😜`], discordMessage);
+                    getWordFromKey(discordMessage, keyword, messageTone);
                 }
             }
-            break;
+        } else {
+            messaging.reply(`Eww stay away from me ${discordMessage.author.username}, I'm talking to ${botInstance.friend.username} right now.`, discordMessage);
         }
-
-        if (messageTone == 0)
-            messageTone = isModifier(word)
-
-    }
-
-    console.log("MESSAGE TONE IS " + messageTone)
-
-
-    if (botInstance.friend == discordMessage.author.id) {
-        //affection++ for each message sent by user
-        let keyword = parseDiscordMessage(discordMessage);
-        console.log(`keyword: ${keyword}`)
-        if (keyword == null || keyword.localeCompare("") == 0)
-            messaging.reply(`I don't know what you mean by "${discordMessage.content}"`, discordMessage); //fixable if the user is just chatting
-        else {
-            if (keyword.localeCompare("picture") == 0) {
-                console.log("IM IN GETEMBED")
-                let embed = sendEmbed(discordMessage.author.id)//gender, get picture, title, affection
-                discordMessage.channel.send(embed);
-            }
-            else
-                getWordFromKey(discordMessage, keyword, messageTone);
-        }
-    } else {
-        messaging.reply(`Eww stay away from me ${discordMessage.author.username}, I'm talking to ${botInstance.friend.username} right now.`, discordMessage);
     }
 });
 
@@ -128,26 +134,26 @@ function getUserFromMention(mention) {
 function sendEmbed(userId) {
 
     //getConfigurationFromServer(userId).then(data => {
-        let datagender = "f";
+    let datagender = "f";
 
-        let image = "";
-        if(datagender == "m"){
-            let rng = getRandomInteger(0, pictures.maleImages.length-1);
-            image = pictures.maleImages[rng];
-        } else if(datagender == "f") {
-            let rng = getRandomInteger(0, pictures.femaleImages.length-1);
-            image = pictures.femaleImages[rng];
-        } else {
-            let rng = getRandomInteger(0, pictures.nonBinaryImages.length-1);
-            image = pictures.nonBinaryImagesImages[rng];
-        }
+    let image = "";
+    if (datagender == "m") {
+        let rng = getRandomInteger(0, pictures.maleImages.length - 1);
+        image = pictures.maleImages[rng];
+    } else if (datagender == "f") {
+        let rng = getRandomInteger(0, pictures.femaleImages.length - 1);
+        image = pictures.femaleImages[rng];
+    } else {
+        let rng = getRandomInteger(0, pictures.nonBinaryImages.length - 1);
+        image = pictures.nonBinaryImagesImages[rng];
+    }
 
-        const embed = new Discord.MessageEmbed()
+    const embed = new Discord.MessageEmbed()
         .setColor('#FFC0CB')
         .addField('Affection', 32, true) //affection -- data.affection
         .setImage(image) //IMAGE URL
 
-        return embed
+    return embed
     //});
 }
 
