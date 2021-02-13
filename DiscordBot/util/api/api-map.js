@@ -16,6 +16,8 @@ let apiMap = new Map([
     ["chuck norris", { URL: "https://api.icndb.com/jokes/", APPEND: "", MAX_RANGE: 619 }],
     ["star", ""], // needs to search for full word
     ["star wars character", { URL: "https://www.swapi.tech/api/people/", APPEND: "", MAX_RANGE: 83 }],
+    ["programming", ""], // needs to search for full word
+    ["programming joke", { URL: "https://v2.jokeapi.dev/joke/programming/", APPEND: "", MAX_RANGE: 100000}],
     
 
 

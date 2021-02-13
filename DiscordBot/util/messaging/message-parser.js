@@ -40,6 +40,9 @@ function checkNextKeyword(args, i) {
         case "star":
             if (args[i++].localeCompare("wars") == 0 && args[i].localeCompare("character") == 0)
                 return "star wars character";
+        case "programming":
+            if (args[i].localeCompare("joke") == 0)
+            return "programming joke";
         default: return arg;
     }
 }

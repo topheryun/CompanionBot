@@ -11,7 +11,7 @@ async function getApiWordAppend(key) {
     do {
         if (value.APPEND.localeCompare("") == 0) {
             response = await fetch(value.URL + randomNumber + "/");
-        } 
+        }
         else {
             response = await fetch(value.URL + randomNumber + "/" + value.APPEND + "/"); 
         }
@@ -31,6 +31,7 @@ function returnType(key, data) {
         case "anime": return data.title;
         case "anime genre": return data.genres[0].name; // data["genres"][0]["name"]
         case "brewery": return data.name;
+        case "programming joke": return data.joke;
         case "anime character": 
             if (data.characters.length == 0) return "";
             choice = getRandomInteger(0, data.characters.length - 1);
@@ -124,6 +125,16 @@ async function chuckNorris(discordMessage, key) {
     }
 }
 
+async function programmingJoke(discordMessage, key) {
+    value = apiMap.get(key);
+    let randomNumber = getRandomInteger(1, value.MAX_RANGE);
+    let response = await fetch(value.URL + randomNumber);
+    if (response.status === 200) {
+        let data = await response.json();
+        discordMessage.channel.send(data.joke);
+    }
+}
+
 module.exports = {
     getApiWordAppend,
     getApiWord,
@@ -131,5 +142,6 @@ module.exports = {
     quoteSwanson,
     getQuote,
     getCocktail,
-    chuckNorris
+    chuckNorris,
+    programmingJoke
 }
