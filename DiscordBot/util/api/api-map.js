@@ -20,13 +20,14 @@ let apiMap = new Map([
     ["got", ""], // needs to search for full phrase
     ["got character", { URL: "https://anapioficeandfire.com/api/characters/", APPEND: "", MAX_RANGE: 2138 }],
 
-
+    
     // single json return
     ["taco", { URL: "http://taco-randomizer.herokuapp.com/random/" }],
     ["ron", { URL: "http://ron-swanson-quotes.herokuapp.com/v2/quotes/" }],
     ["swanson", { URL: "http://ron-swanson-quotes.herokuapp.com/v2/quotes/" }],
     ["country", { URL: "https://www.thesportsdb.com/api/v1/json/1/all_countries.php" }],
     ["sport", { URL: "https://www.thesportsdb.com/api/v1/json/1/all_sports.php" }],
+    ["trivia", { URL: "https://opentdb.com/api.php?amount=1" }],
     
     // physical database
     ["cat", ""],

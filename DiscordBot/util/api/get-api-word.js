@@ -125,6 +125,18 @@ async function chuckNorris(discordMessage, key) {
     }
 }
 
+async function getTrivia(discordMessage, key) {
+    value = apiMap.get(key);
+    let response = await fetch(value.URL);
+    if (response.status === 200) {
+        let data = await response.json();
+        discordMessage.channel.send(`Question: ${data.results[0].question}`);
+        setTimeout(() => {
+            discordMessage.channel.send(`Answer: ${data.results[0].correct_answer}`);
+        }, 5000);
+    }
+}
+
 module.exports = {
     getApiWordAppend,
     getApiWord,
@@ -132,5 +144,6 @@ module.exports = {
     quoteSwanson,
     getQuote,
     getCocktail,
-    chuckNorris
+    chuckNorris,
+    getTrivia
 }
