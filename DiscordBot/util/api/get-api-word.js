@@ -111,6 +111,8 @@ async function getCocktail(discordMessage, key) {
         let data = await response.json();
         let message = `${data.drinks[0].strDrink} with extra ${data.drinks[0].strIngredient1}`;
         discordMessage.channel.send(message);
+    }
+}
         
 async function chuckNorris(discordMessage, key) {
     value = apiMap.get(key);
