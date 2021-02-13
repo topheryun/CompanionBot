@@ -1,5 +1,6 @@
 const { catArray } = require("../arrays/cat-array");
-const { getApiWordAppend, getTaco, quoteSwanson, getApiWord } = require("./api/get-api-word");
+const { holidayArray } = require("../arrays/holiday-array");
+const { getApiWordAppend, getTaco, quoteSwanson, getApiWord, chuckNorris } = require("./api/get-api-word");
 const { getRandomInteger } = require("./MathUtil")
 const { genericResponses, positiveResponses, negativeResponses } = require("./messaging/generic-responses")
 
@@ -8,21 +9,32 @@ async function getWordFromKey(discordMessage, args, modifier) {
     let data;
     let choice;
 
-    // physical database
+    // console.log("key: " +key)
+
+    // physical databases
     if (key.localeCompare("cat") == 0) {
-        choice = getRandomInteger(0, catArray.length);
+        choice = getRandomInteger(0, catArray.length - 1);
         data = catArray[choice];
+        sendMessage(discordMessage, data, modifier);
+    }
+    else if (key.localeCompare("holiday") == 0) {
+        choice = getRandomInteger(0, holidayArray.length - 1);
+        data = holidayArray[choice];
         sendMessage(discordMessage, data, modifier);
     }
     // taco
     else if (key.localeCompare("taco") == 0) {
         getTaco(discordMessage, key);
     }
-    // ron swanson
+    // ron swanson quote
     else if (key.localeCompare("ron") == 0 || key.localeCompare("swanson") == 0) {
         quoteSwanson(discordMessage, key);
     }
-    // returns a list
+    // chuck norris joke
+    else if (key.localeCompare("chuck") == 0) {
+        chuckNorris(discordMessage, key);
+    }
+    // request returns a list
     else if (key.localeCompare("country") == 0 || key.localeCompare("sport") == 0) {
         data = await getApiWord(key);
         sendMessage(discordMessage, data);

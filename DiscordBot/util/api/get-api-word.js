@@ -9,7 +9,12 @@ async function getApiWordAppend(key) {
     let timeOut = 0;
 
     do {
-        response = await fetch(value.URL + randomNumber + "/" + value.APPEND + "/");
+        if (value.APPEND.localeCompare("") == 0) {
+            response = await fetch(value.URL + randomNumber + "/");
+        } 
+        else {
+            response = await fetch(value.URL + randomNumber + "/" + value.APPEND + "/"); 
+        }
         timeOut++;
     } while (response.status != 200 || timeOut >= 25)
     
@@ -43,6 +48,9 @@ function returnType(key, data) {
             return data.characters[choice].voice_actors[0].name;
         case "manga": return data.title;
         case "mangaka": return data.authors[0].name;
+        case "star wars character": return data.result.properties.name;
+
+        // returns a list
         case "country":
             choice = getRandomInteger(0, data.countries.length - 1);
             return data.countries[choice].name_en;
@@ -82,9 +90,20 @@ async function quoteSwanson(discordMessage, key) {
     }
 }
 
+async function chuckNorris(discordMessage, key) {
+    value = apiMap.get(key);
+    let randomNumber = getRandomInteger(1, value.MAX_RANGE);
+    let response = await fetch(value.URL + randomNumber + "/");
+    if (response.status === 200) {
+        let data = await response.json();
+        discordMessage.channel.send(data.value.joke);
+    }
+}
+
 module.exports = {
     getApiWordAppend,
     getApiWord,
     getTaco,
-    quoteSwanson
+    quoteSwanson,
+    chuckNorris
 }
