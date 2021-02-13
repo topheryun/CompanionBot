@@ -24,7 +24,6 @@ let apiMap = new Map([
     ["super", ""],
     ["superhero", { URL: "https://www.superheroapi.com/api.php/10158222866787284/", APPEND: "", MAX_RANGE: 732 }],
 
-    
     // single json return
     ["taco", { URL: "http://taco-randomizer.herokuapp.com/random/" }],
     ["ron", { URL: "http://ron-swanson-quotes.herokuapp.com/v2/quotes/" }],

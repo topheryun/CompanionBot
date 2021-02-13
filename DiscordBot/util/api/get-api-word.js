@@ -26,8 +26,8 @@ async function getApiWordAppend(key) {
 
 function returnType(key, data) {
     let choice;
-    switch (key) {
-        case "pokemon": return data.name;
+    switch(key) {
+        case "pokemon": return data.name.charAt(0).toUpperCase() + data.name.slice(1);
         case "dog": return data.name;
         case "anime": return data.title;
         case "anime genre": return data.genres[0].name; // data["genres"][0]["name"]

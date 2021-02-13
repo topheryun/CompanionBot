@@ -10,60 +10,44 @@ async function getWordFromKey(discordMessage, args, modifier) {
     let data;
     let choice;
 
-    // console.log("key: " +key)
-
-    // physical databases
-    if (key.localeCompare("cat") == 0) {
-        choice = getRandomInteger(0, catArray.length - 1);
-        data = catArray[choice];
-        sendMessage(discordMessage, data, modifier);
-    }
-    else if (key.localeCompare("holiday") == 0) {
-        choice = getRandomInteger(0, holidayArray.length - 1);
-        data = holidayArray[choice];
-        sendMessage(discordMessage, data, modifier);
-    }
-    else if (key.localeCompare("number") == 0) {
-        choice = getRandomDouble(-10000,10000);
-        sendMessage(discordMessage, choice, modifier);
-    }
-    // taco
-    else if (key.localeCompare("taco") == 0) {
-        getTaco(discordMessage, key);
-    }
-    // quote
-    else if (key.localeCompare("quote") == 0) {
-        getQuote(discordMessage, key);
-    }
-    // cocktail
-    else if (key.localeCompare("cocktail") == 0) {
-        getCocktail(discordMessage, key);
-    }
-    // trivia
-    else if (key.localeCompare("trivia") == 0) {
-        getTrivia(discordMessage, key);
-    }
-    // ron swanson quote
-    else if (key.localeCompare("ron") == 0 || key.localeCompare("swanson") == 0) {
-        quoteSwanson(discordMessage, key);
-    }
-    // chuck norris joke
-    else if (key.localeCompare("chuck") == 0) {
-        chuckNorris(discordMessage, key);
-    }
-    // programming joke
-    else if (key.localeCompare("programming joke") == 0) {
-        programmingJoke(discordMessage, key);
-    }
-    // request returns a list
-    else if (key.localeCompare("country") == 0 || key.localeCompare("sport") == 0) {
-        data = await getApiWord(key);
-        sendMessage(discordMessage, data);
-    }
-    // normal requests and ones with words appended at the end
-    else {
-        data = await getApiWordAppend(key);
-        sendMessage(discordMessage, data, modifier);
+    switch (key) {
+        case "cat":
+            choice = getRandomInteger(0, catArray.length - 1);
+            data = catArray[choice];
+            sendMessage(discordMessage, data, modifier);
+            break;
+        case "holiday":
+            choice = getRandomInteger(0, holidayArray.length - 1);
+            data = holidayArray[choice];
+            sendMessage(discordMessage, data, modifier);
+            break;
+        case "number":
+            choice = getRandomDouble(-10000,10000);
+            sendMessage(discordMessage, choice, modifier);
+            break;
+        case "taco": getTaco(discordMessage, key);
+            break;
+        case "quote": getQuote(discordMessage, key);
+            break;
+        case "cocktail": getCocktail(discordMessage, key);
+            break;
+        case "trivia": getTrivia(discordMessage, key);
+            break;
+        case "ron": 
+        case "swanson": quoteSwanson(discordMessage, key);
+            break;
+        case "chuck norris": chuckNorris(discordMessage, key);
+            break;
+        case "programming joke": programmingJoke(discordMessage, key);
+            break;
+        case "country":
+        case "sport": 
+            data = await getApiWord(key);
+            sendMessage(discordMessage, data);
+            break;
+        default:
+            data = await getApiWordAppend(key);
+            sendMessage(discordMessage, data, modifier);
     }
 }
 
