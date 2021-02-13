@@ -32,6 +32,7 @@ function returnType(key, data) {
         case "anime genre": return data.genres[0].name; // data["genres"][0]["name"]
         case "brewery": return data.name;
         case "programming joke": return data.joke;
+        case "superhero": return data.name;
         case "anime character": 
             if (data.characters.length == 0) return "";
             choice = getRandomInteger(0, data.characters.length - 1);
