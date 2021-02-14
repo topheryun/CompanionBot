@@ -1,5 +1,4 @@
 class CompanionBot {
-
     name = "";
     messageCount = 0;
     friend;

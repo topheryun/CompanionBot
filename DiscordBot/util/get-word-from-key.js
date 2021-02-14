@@ -1,10 +1,9 @@
 const { catArray } = require("../arrays/cat-array");
+const { holidayArray } = require("../arrays/holiday-array");
 const { getApiWordAppend, getTaco, getQuote, getCocktail, programmingJoke,
     quoteSwanson, getApiWord, chuckNorris, getTrivia } = require("./api/get-api-word");
-const { holidayArray } = require("../arrays/holiday-array");
 const { getRandomInteger, getRandomDouble } = require("./MathUtil");
 const { genericResponses, positiveResponses, negativeResponses } = require("./messaging/generic-responses");
-
 
 async function getWordFromKey(discordMessage, args, modifier) {
     let key = args;
@@ -53,7 +52,6 @@ async function getWordFromKey(discordMessage, args, modifier) {
 }
 
 function sendMessage(discordMessage, data, modifier) {
-
     let message = "";
 
     if (modifier == -1) { //negative
@@ -62,9 +60,7 @@ function sendMessage(discordMessage, data, modifier) {
             message = `${negativeResponses[randomInt]} ${data}`
         else if (randomInt > 2 && randomInt < 3)
             message = `${negativeResponses[randomInt][0]} ${data} ${negativeResponses[randomIntx][1]}`
-        else
-            message = `${data} ${negativeResponses[randomInt]}`
-
+        else message = `${data} ${negativeResponses[randomInt]}`
 
     } else if (modifier == 1) { //positive
         let randomInt = getRandomInteger(0, positiveResponses.length);
@@ -72,8 +68,7 @@ function sendMessage(discordMessage, data, modifier) {
             message = `${positiveResponses[randomInt]} ${data}`
         else if (randomInt > 3 && randomInt < 5)
             message = `${positiveResponses[randomInt][0]} ${data} ${positiveResponses[randomInt][1]}`
-        else
-            message = `${data} ${positiveResponses[randomInt]}`
+        else message = `${data} ${positiveResponses[randomInt]}`
 
     } else { //generic
         let randomInt = getRandomInteger(0, genericResponses.length);
@@ -81,8 +76,7 @@ function sendMessage(discordMessage, data, modifier) {
             message = `${genericResponses[randomInt]} ${data}`
         else if (randomInt > 3 && randomInt < 6)
             message = `${genericResponses[randomInt][0]} ${data} ${genericResponses[randomInt][1]}`
-        else
-            message = `${data} ${genericResponses[randomInt]}`
+        else message = `${data} ${genericResponses[randomInt]}`
     }
 
     discordMessage.channel.send(message);

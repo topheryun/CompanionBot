@@ -6,7 +6,6 @@ const maleImages = [
     "https://cdn.discordapp.com/attachments/810213199990489158/810218786497888296/179-1797930_kirito-sword-art-online-kirito-fanart.png",
     "https://cdn.discordapp.com/attachments/810213199990489158/810219096460492810/b320b6df4ee17602434b4788f67b7a54.jpg",
     "https://cdn.discordapp.com/attachments/810213199990489158/810219366939099156/lqo8w0y786s21.png"
-
 ]
 
 const femaleImages = [
@@ -15,12 +14,10 @@ const femaleImages = [
     "https://cdn.discordapp.com/attachments/810213199990489158/810217973486845962/DzzgGflWkAMPZC-.jpg",
     "https://cdn.discordapp.com/attachments/810213199990489158/810217746750636042/Oshino.Shinobu.600.2945017.jpg",
     "https://cdn.discordapp.com/attachments/810213199990489158/810217544048443492/Nia.Teppelin.full.687209.jpg"
-
 ]
 
 const nonBinaryImages = [
     "https://cdn.discordapp.com/attachments/810213199990489158/810213369117147216/folder_-_Copy.jpg", //Rice
-
 ]
 
 module.exports = {

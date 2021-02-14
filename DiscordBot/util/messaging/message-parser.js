@@ -1,5 +1,4 @@
 const { apiMap } = require("../api/api-map");
-const { getApiWord } = require("../api/get-api-word");
 const { messageModifiers } = require("./generic-responses")
 
 function parseDiscordMessage(discordMessage) {
@@ -72,7 +71,6 @@ function checkNextKeyword(args, i) {
 }
 
 function isModifier(word) { //Modifier as in positive and negative words
-
     if (messageModifiers.has(word)) {
         return messageModifiers.get(word);
     }
@@ -80,9 +78,6 @@ function isModifier(word) { //Modifier as in positive and negative words
 }
 
 function checkConfigPhrase(word) {
-    //let message = String(discordMessage.content);
-    //message = message.toLowerCase();
-
     switch (word.toLowerCase()) {
         case "who are you":
         case "who are you?":

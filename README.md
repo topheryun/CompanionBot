@@ -26,13 +26,18 @@ You are by yourself on a lonely Valentine's Day weekend. We created the perfect 
 
 2. Clone the repository by opening Git Bash at the desired location and running the clone command:
 
-    `git clone (name-of-url).git`
+    - `git clone (name-of-url).git`
 
 3. Follow this [guide](https://discordjs.guide/) to create a Discord bot and add it to your server.
 
-4. Open Git Bash in the cloned folder and run:
+4. Create a config.json file at the root level to contain sensitive data and place it your .gitignore file. It contains:
+   -  `URL` which is the server endpoint
+   - `TOKEN` which is your Discord bot's private token
+   - `CHANNEL` if you want to specify which channel your bot is active on.
 
-    `node .`
+5. Open Git Bash in the cloned folder and run:
+
+   -  `node .`
 
 
 ---
