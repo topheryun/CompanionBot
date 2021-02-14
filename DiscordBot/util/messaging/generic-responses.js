@@ -19,10 +19,8 @@ let positiveResponses = [
     "My favorite one is",
     "The best one is",
     "For me, its 100%",
-
     //Between
-    ["I'd have to say", "is up there"],
-    
+    ["I'd have to say", "is up there"],   
     //Before
     "is the BEST!!",
     "is awesome :)",
@@ -48,6 +46,7 @@ let messageModifiers = new Map([
     //positive
     ["favorite", 1],
     ["best", 1],
+    ["great", 1],
     ["greatest", 1],
     ["awesome", 1], 
     ["fantastic", 1],
