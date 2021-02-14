@@ -2,10 +2,8 @@ const { interestsArray } = require("../../arrays/interests");
 const messaging = require("./MessageUtil");
 
 function sayInterests(discordMessage) {
-    // get three interests from interests array
     let shuffledInterests = shuffle(interestsArray);
-    messaging.reply(`Some of my interests are pokemon, dogs, numbers!`, discordMessage);
-    // messaging.reply(`Some of my interests: ${shuffledInterests[0]}, ${shuffledInterests[1]}, ${shuffledInterests[2]}`, discordMessage);
+    messaging.reply(`Some of my interests: ${shuffledInterests[0]}, ${shuffledInterests[1]}, ${shuffledInterests[2]}`, discordMessage);
 }
 
 function shuffle(arr) {
