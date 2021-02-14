@@ -38,8 +38,6 @@ let apiMap = new Map([
     ["number", ""],
 
     // misc
-    ["pic", ""],
-    ["picture", ""],
     ["i", ""],
 ]);
 

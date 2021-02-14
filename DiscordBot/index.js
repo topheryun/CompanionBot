@@ -11,7 +11,7 @@ const pictures = require("./arrays/pic-array")
 const { parseDiscordMessage, isModifier, checkConfigPhrase } = require("./util/messaging/message-parser");
 const { greetings } = require('./util/messaging/generic-responses');
 const { getRandomInteger } = require('./util/MathUtil');
-const { affectionResponse } = require('./util/messaging/affection');
+const { affectionResponse, affectionEmbed } = require('./util/messaging/affection');
 
 const client = new Discord.Client();
 
@@ -24,8 +24,6 @@ client.on('message', discordMessage => {
     if (discordMessage.channel.id != CHANNEL) return; //returns if the message is not in the designated channel
     if (discordMessage.author.bot) return; // returns if the msg is by the bot
 
-    
-
     botInstance.messageCount++;
     let msg = discordMessage.content.toLowerCase();
     const messageArray = msg.trim().split(/ +/);
@@ -34,6 +32,7 @@ client.on('message', discordMessage => {
     //botInstance.friend = discordMessage.author; // for testing
     //botInstance.gender = "f";
     //botInstance.imageURL = pictures.femaleImages[2];
+    
 
     if (!botInstance.friend) { //Config phase  
         let pingCheck = false;
@@ -73,8 +72,9 @@ client.on('message', discordMessage => {
 
             let keyword = parseDiscordMessage(discordMessage); // parsing
             console.log(`keyword: ${keyword}`)
+            
             if (keyword == null || keyword.localeCompare("") == 0)
-                messaging.reply(`I don't know what you mean by "${discordMessage.content}"`, discordMessage); //fixable if the user is just chatting
+                discordMessage.react('🤷');
             else {
                 if (keyword.localeCompare("picture") == 0) {
 
@@ -100,7 +100,8 @@ async function setBotName(discordMessage) {
     const nameCollector = discordMessage.channel.createMessageCollector(filter, { max: 1, time: 20000 });
     await nameCollector.on('collect', message => {
         console.log(`Collected ${message.content}`);
-        client.user.setUsername(message.content);
+        //client.user.setUsername(message.content);
+        botInstance.name = message.content;
         discordMessage.channel.send("What is my gender?");
         setBotGender(discordMessage);
     });
@@ -146,8 +147,8 @@ function getEmbed() {
 
     const embed = new Discord.MessageEmbed()
         .setColor('#FFC0CB')
-        .setTitle( client.user.username )
-        .addField( `${client.user.username} likes ${botInstance.friend.username}`, `Affection ${botInstance.affection}` )
+        .setTitle( botInstance.name )
+        .addField( affectionEmbed(), `Affection ${botInstance.affection}` )
         .setImage(image)
     return embed
 }

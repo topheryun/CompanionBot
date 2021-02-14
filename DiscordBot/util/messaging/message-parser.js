@@ -3,7 +3,7 @@ const { messageModifiers } = require("./generic-responses")
 
 function parseDiscordMessage(discordMessage) {
     let userMessage = discordMessage.content.toLowerCase();
-    userMessage = userMessage.replace(/\?|!/g,'');
+    userMessage = userMessage.replace(/\?|!/g, '');
     const args = userMessage.trim().split(/ +/);
 
     return properKeywords(args);
@@ -14,7 +14,8 @@ function properKeywords(args) {
     for (let i = 0; i < args.length; i++) {
         if (apiMap.has(args[i])) {
             return checkNextKeyword(args, i);
-        }
+        } else if(args[i].localeCompare("pic") == 0 || args[i].localeCompare("picture") == 0)
+            return "picture";
     }
     return arg;
 }
@@ -25,9 +26,9 @@ function checkNextKeyword(args, i) {
     if (i >= args.length) return arg;
 
     switch (arg) {
-        case "anime": 
+        case "anime":
             if (args[i].localeCompare("character") == 0 || args[i].localeCompare("director") == 0 ||
-            args[i].localeCompare("genre") == 0) 
+                args[i].localeCompare("genre") == 0)
                 return "anime " + args[i];
             else if (args[i].localeCompare("voice") == 0 || args[i].localeCompare("va") == 0)
                 return "anime va";
@@ -42,7 +43,7 @@ function checkNextKeyword(args, i) {
                 return "star wars character";
         case "programming":
             if (args[i].localeCompare("joke") == 0)
-            return "programming joke";
+                return "programming joke";
         case "game":
             if (args[i++].localeCompare("of") == 0 && args[i++].localeCompare("thrones") == 0 && args[i].localeCompare("character") == 0)
                 return "got character";
@@ -52,9 +53,7 @@ function checkNextKeyword(args, i) {
         case "super":
             if (args[i].localeCompare("hero") == 0)
                 return "superhero";
-        case "pic":
-        case "picture": return "picture";
-        case "i": 
+        case "i":
             if (args[i++].localeCompare("love") == 0 && args[i].localeCompare("you") == 0)
                 return "i love you";
         default: return arg;
@@ -63,7 +62,7 @@ function checkNextKeyword(args, i) {
 
 function isModifier(word) { //Modifier as in positive and negative words
 
-    if(messageModifiers.has(word)){
+    if (messageModifiers.has(word)) {
         return messageModifiers.get(word);
     }
     return 0
@@ -71,7 +70,7 @@ function isModifier(word) { //Modifier as in positive and negative words
 
 function checkConfigPhrase(discordMessage) {
     let message = String(discordMessage.content).toLowerCase();
-    
+
     switch (message) {
         case "who are you":
         case "who are you?":
