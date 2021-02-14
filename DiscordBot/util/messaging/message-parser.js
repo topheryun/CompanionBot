@@ -52,11 +52,11 @@ function checkNextKeyword(args, i) {
         case "super":
             if (args[i].localeCompare("hero") == 0)
                 return "superhero";
-        case "pic":
-        case "picture": return "picture";
+        case "pic": return "picture";
         case "i": 
             if (args[i++].localeCompare("love") == 0 && args[i].localeCompare("you") == 0)
                 return "i love you";
+        case "interest": return "interests";
         default: return arg;
     }
 }

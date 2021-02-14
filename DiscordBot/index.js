@@ -12,6 +12,7 @@ const { parseDiscordMessage, isModifier, checkConfigPhrase } = require("./util/m
 const { greetings } = require('./util/messaging/generic-responses');
 const { getRandomInteger } = require('./util/MathUtil');
 const { affectionResponse } = require('./util/messaging/affection');
+const { sayInterests } = require('./util/messaging/say-interests');
 
 const client = new Discord.Client();
 
@@ -83,14 +84,10 @@ client.on('message', discordMessage => {
 
                     let embed = getEmbed();
                     discordMessage.channel.send(embed);
-
                 }
-                else if (keyword.localeCompare("i love you") == 0) {
-                    affectionResponse(discordMessage);
-                } 
-                else {
-                    getWordFromKey(discordMessage, keyword, messageTone); // getting from api
-                }
+                else if (keyword.localeCompare("i love you") == 0) affectionResponse(discordMessage);
+                else if (keyword.localeCompare("interests") == 0) sayInterests(discordMessage);
+                else getWordFromKey(discordMessage, keyword, messageTone); // getting from api
             }
         } else {
             messaging.reply(`Eww stay away from me ${discordMessage.author.username}, I'm talking to ${botInstance.friend.username} right now.`, discordMessage);
