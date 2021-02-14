@@ -16,11 +16,9 @@ const femaleImages = [
     "https://cdn.discordapp.com/attachments/810213199990489158/810217746750636042/Oshino.Shinobu.600.2945017.jpg",
     "https://cdn.discordapp.com/attachments/810213199990489158/810217544048443492/Nia.Teppelin.full.687209.jpg"
 
-
 ]
 
 const nonBinaryImages = [
-
     "https://cdn.discordapp.com/attachments/810213199990489158/810213369117147216/folder_-_Copy.jpg", //Rice
 
 ]
@@ -30,4 +28,3 @@ module.exports = {
     femaleImages,
     nonBinaryImages
 }
-

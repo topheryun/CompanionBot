@@ -40,8 +40,6 @@ let apiMap = new Map([
     ["game", ""],
     ["got", ""],
     ["super", ""],
-    ["pic", ""],
-    ["picture", ""],
     ["i", ""],
 ]);
 

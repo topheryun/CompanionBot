@@ -60,8 +60,6 @@ let messageModifiers = new Map([
     ["lamest", -1],
     ["garbage", -1],
     ["trash", -1],
-    ["shit", -1],
-    ["dumpster", -1],
 ]);
 
 let greetings = [
@@ -73,8 +71,6 @@ let greetings = [
     "What's happening", "What's happenin", "What's up", "Hey",
     "Hey there", "Sup", "Wassup"
 ];
-
-//if wordTone.has(fantastic), then wordtone.get(fantastic)
 
 module.exports = {
     genericResponses,
