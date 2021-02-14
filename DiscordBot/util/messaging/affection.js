@@ -35,11 +35,8 @@ function affectionResponse(discordMessage) {
         messaging.reply("I love you too!", discordMessage);
     }
     else {
-        discordMessage.react('💖');
-        discordMessage.react('💞');
-        messaging.reply("I love you too!", discordMessage);
-        //discordMessage.react('💍');
-        //return messaging.reply("YOU HAVE REACHED THE SPOUSE RELATIONSHIP STATUS CONGRATULATIONS", discordMessage);
+        discordMessage.react('💍');
+        return messaging.reply("YOU HAVE REACHED THE SPOUSE RELATIONSHIP STATUS CONGRATULATIONS", discordMessage);
     }
 }
 
@@ -49,7 +46,7 @@ function affectionEmbed() {
     else if (affectionLevel < 30) return "Acquaintance"
     else if (affectionLevel < 45) return "Friend"
     else if (affectionLevel < 60) return "Best Friend"
-    else if (affectionLevel < 75) return "Crush ❤️ "
+    else if (affectionLevel < 75) return "Crush ❤️"
     else return "Spouse 💗💗💗"
 }
 
