@@ -69,11 +69,11 @@ function isModifier(word) { //Modifier as in positive and negative words
     return 0
 }
 
-function checkConfigPhrase(discordMessage) {
-    let message = String(discordMessage.content);
-    message = message.toLowerCase();
+function checkConfigPhrase(word) {
+    //let message = String(discordMessage.content);
+    //message = message.toLowerCase();
 
-    switch (message) {
+    switch (word.toLowerCase()) {
         case "who are you":
         case "who are you?":
         case "hello":
