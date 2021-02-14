@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
-const { getRandomInteger } = require("../MathUtil");
-const { apiMap } = require("./api-map");
 const messaging = require("../messaging/MessageUtil");
+const { apiMap } = require("./api-map");
+const { getRandomInteger } = require("../MathUtil");
 
 async function getApiWordAppend(key) {
     value = apiMap.get(key);
@@ -55,16 +55,12 @@ function returnType(key, data) {
         case "mangaka": return data.authors[0].name;
         case "star wars character": return data.result.properties.name;
         case "got character": return data.titles[0].localeCompare("") != 0 ? data.name + ", \"" + data.titles[0] + "\"" : data.name;
-
-        // returns a list
         case "country":
             choice = getRandomInteger(0, data.countries.length - 1);
             return data.countries[choice].name_en;
         case "sport":
             choice = getRandomInteger(0, data.sports.length - 1);
             return data.sports[choice].strSport;
-
-
     }
 }
 
@@ -86,7 +82,6 @@ async function getTaco(discordMessage, key) {
         let data = await response.json();
         let message = `My favorite combo would be ${data.shell.name} with ${data.base_layer.name} seasoned with ${data.seasoning.name}. Some ${data.mixin.name} and ${data.condiment.name} on top!`;
         discordMessage.channel.send(message)
-        //messaging.reply(message, discordMessage)
     }
 }
 
