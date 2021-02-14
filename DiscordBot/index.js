@@ -22,7 +22,7 @@ client.once('ready', () => {
 
 client.on('message', discordMessage => {
 
-    if (discordMessage.channel.id != CHANNEL) return; //returns if the message is not in the designated channel
+    // if (discordMessage.channel.id != CHANNEL) return; //returns if the message is not in the designated channel
     if (discordMessage.author.bot) return; // returns if the msg is by the bot
 
     botInstance.messageCount++;
