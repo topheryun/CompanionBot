@@ -40,11 +40,12 @@ client.on('message', discordMessage => {
 
         for (let word of messageArray) {
             if (getUserFromMention(word) == `807289535184109618`) pingCheck = true;
+            if (checkConfigPhrase(word)) pingCheck = true;
         }
 
-        if (checkConfigPhrase(discordMessage) || pingCheck) {
+        if (pingCheck) {
             let greetingChoice = getRandomInteger(0, greetings.length - 1);
-            discordMessage.channel.send(`${greetings[greetingChoice]} who am I?`);
+            discordMessage.channel.send(`${greetings[greetingChoice]}, what is my name?`);
             setBotName(discordMessage);
         }
     }
