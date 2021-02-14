@@ -112,6 +112,7 @@ async function setBotGender(discordMessage) {
         configBotGender(message.content);
         botInstance.friend = discordMessage.author;
         discordMessage.channel.send(getEmbed())
+        sayInterests(discordMessage);
     });
 }
 
