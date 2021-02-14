@@ -29,14 +29,17 @@ function affectionResponse(discordMessage) {
         discordMessage.react('❤️')
         messaging.reply("same!", discordMessage);
     }
-    else if (affectionLevel < 75) {
+    else if (affectionLevel < 75 || affectionLevel > 75) {
         discordMessage.react('💖');
         discordMessage.react('💞');
         messaging.reply("I love you too!", discordMessage);
     }
     else {
-        discordMessage.react('💍');
-        return messaging.reply("YOU HAVE REACHED THE SPOUSE RELATIONSHIP STATUS CONGRATULATIONS", discordMessage);
+        discordMessage.react('💖');
+        discordMessage.react('💞');
+        messaging.reply("I love you too!", discordMessage);
+        //discordMessage.react('💍');
+        //return messaging.reply("YOU HAVE REACHED THE SPOUSE RELATIONSHIP STATUS CONGRATULATIONS", discordMessage);
     }
 }
 

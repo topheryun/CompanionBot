@@ -134,23 +134,11 @@ function getUserFromMention(mention) {
 }
 
 function getEmbed() {
-    let image = "";
-    if (botInstance.gender == "m") {
-        let rng = getRandomInteger(0, pictures.maleImages.length - 1);
-        image = pictures.maleImages[rng];
-    } else if (botInstance.gender == "f") {
-        let rng = getRandomInteger(0, pictures.femaleImages.length - 1);
-        image = pictures.femaleImages[rng];
-    } else {
-        let rng = getRandomInteger(0, pictures.nonBinaryImages.length - 1);
-        image = pictures.nonBinaryImages[rng];
-    }
-
     const embed = new Discord.MessageEmbed()
         .setColor('#FFC0CB')
         .setTitle( botInstance.name )
         .addField( affectionEmbed(), `Affection ${botInstance.affection}` )
-        .setImage(image)
+        .setImage(botInstance.imageURL)
     return embed
 }
 

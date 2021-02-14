@@ -85,7 +85,8 @@ async function getTaco(discordMessage, key) {
     if (response.status === 200) {
         let data = await response.json();
         let message = `My favorite combo would be ${data.shell.name} with ${data.base_layer.name} seasoned with ${data.seasoning.name}. Some ${data.mixin.name} and ${data.condiment.name} on top!`;
-        messaging.reply(message, discordMessage)
+        discordMessage.channel.send(message)
+        //messaging.reply(message, discordMessage)
     }
 }
 
